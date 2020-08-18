@@ -1,8 +1,8 @@
 package cn.ffcs.service;
 
 import cn.ffcs.bean.User;
+import cn.ffcs.bo.UserBO;
 import cn.ffcs.util.PagedGridResult;
-import cn.ffcs.vo.UserVO;
 
 import java.util.List;
 
@@ -14,27 +14,34 @@ public interface UserService {
 
     /**
      * 添加一个新的用户
-     * @param userVO
+     * @param userBO
      */
-    void create(UserVO userVO);
+    void create(UserBO userBO);
 
 
     /**
      * 更新用户
-     * @param userVO
+     * @param userBO
      */
-    void update(UserVO userVO);
+    void update(UserBO userBO);
 
 
     /**
      * 删除用户
-     * @param userVO
+     * @param id
      */
-    void delete(UserVO userVO);
+    void delete(Integer id);
+
+    /**
+     * 检查员工代码是否已经存在
+     * @param code
+     * @return
+     */
+    boolean checkCode(String code);
 
 
     /**
-     *
+     * 分页查询用户信息数据
      * @param page
      * @param pageSize
      * @param queryText
@@ -42,11 +49,5 @@ public interface UserService {
      */
     PagedGridResult pageQuery(int page, int pageSize, String queryText);
 
-
-    /**
-     * 根据method执行不同的业务
-     * @param userVO
-     */
-    void doService(UserVO userVO);
 
 }

@@ -1,83 +1,80 @@
 window.app = {
 	serverUrl: "http://localhost:8088",
-	userXmlData: "",
+	errorMsg: "",
 	userList: [],
 	page: 1,
 	total: 1,
 
 	upOrCre: function() {
-		var item = {};
-		item.name = $("#name").val();
-		item.code = $("#code").val();
-		item.age = $("#age").val();
-		item.sex =$("#sex").find("option:selected").val();
-		var p = $("#position").find("option:selected").val();
-		var userId = $("#userId").val();
-		item.position = p;
-		item.id = userId;
-		 
-		console.log(p)
+
+		var item = app.build()
 		var idx = $("#idx").val()
+
 		console.log(item)
-		if (userId == -1 || undefined == userId || "" == userId) {
-			app.userList.push(item);
-			app.build(item, "add");
+
+		// 数据检查
+		if (!app.checkInfo(item)) {
+			app.showError()
+			return false;
+		}
+
+		// 新增
+		if (item.id == -1 || undefined == item.id || "" == item.id) {
+			var url = app.serverUrl + '/user/create'
+			app.put(item, url)
 		} else {
-			app.userList.splice(idx, 1, item)
-			app.build(item, "update");
+			// 修改
+			var url = app.serverUrl + '/user/update'
+			app.put(item, url)
 		}
 
 	},
 
-	// 新增一个用户
-	createUser: function(item) {
-		var method = "add";
-		app.build(item, method);
+	// 显示错误信息
+	showError: function() {
+		var saveFlag = $("#saveFlag");
+		var htmlF = '';
+		htmlF += '<div class="alert alert-warning" >';
+		htmlF += '<a href="#" class="close" data-dismiss="alert">';
+		htmlF += '&times;';
+		htmlF += '</a>';
+		htmlF += '<strong>警告！</strong>' + app.errorMsg;
+		htmlF += '</div>';
+		saveFlag.html(htmlF);
 	},
 
-	build: function(item, method) {
-		// 代码
-		var code = item.code;
-		// 姓名
-		var name = item.name;
-		// 性别
-		var sex = item.sex;
-		// 年龄
-		var age = item.age;
-		// 职位
-		var position = item.position;
-		var id = item.id;
 
-		var xmlData = "";
-		xmlData += "<user>";
-		xmlData += "<method>" + method + "</method>";
-		xmlData += "<id>" + id + "</id>";
-		xmlData += "<name>" + name + "</name>";
-		xmlData += "<code>" + code + "</code>";
-		xmlData += "<sex>" + sex + "</sex>";
-		xmlData += "<age>" + age + "</age>";
-		xmlData += "<position>" + position + "</position>";
-		xmlData += "</user>";
-		console.log(xmlData);
-		app.userXmlData += xmlData;
-		$('#save').removeAttr("disabled");
-		$("#name").val("");
-		$("#code").val("");
-		$("#age").val("");
-		$("#sex").val(0);
-		$("#position").val(1);
-		$("#userId").val(-1);
-		app.listFor();
-	},
-	// 删除用户
-	deleteUser: function(idx) {
-		console.log(idx)
-		var item = app.userList[idx];
+	build: function() {
+		var item = {};
+		item.name = $("#name").val();
+		item.code = $("#code").val();
+		item.age = $("#age").val();
+		item.sex = $("#sex").find("option:selected").val();
+		item.position = $("#position").find("option:selected").val();
+		item.id = $("#userId").val();
 		console.log(item);
-		app.userList.splice(idx, 1);
-		app.build(item, "delete");
+		return item;
 	},
-	// 修改用户信息
+
+	// 删除用户
+	deleteUser: function(id) {
+		console.log(id)
+		$.ajax({
+			type: 'POST',
+			url: app.serverUrl + '/user/delete/' + id,
+			success: function(result) {
+				console.log(result);
+				if (result.code == 0) {
+					app.queryUser(1, 10)
+				} else {
+					app.errorMsg = result.msg
+					app.showError()
+				}
+			},
+		});
+	},
+
+	// 点击修改用户信息
 	updateUser: function(idx) {
 		var item = app.userList[idx];
 		console.log(item);
@@ -88,35 +85,32 @@ window.app = {
 		$("#sex").val(item.sex);
 		$("#idx").val(idx);
 		$("#position").val(item.position);
+		$("#code").attr("disabled", true);
 		$("#myModal").modal("show");
 	},
 
 	// 保存
-	put: function() {
-		var xmlData = "<root>";
-		xmlData += "<users>"
-		xmlData += app.userXmlData;
-		xmlData += "</users>";
-		xmlData += "</root>";
-
-		console.log(xmlData);
+	put: function(data, url) {
+		console.log(data);
 		// 发送请求
 		$.ajax({
 			type: 'POST',
-			url: app.serverUrl + '/user/put',
-			data: {
-				userXmlData: xmlData
-			},
+			url: url,
+			data: data,
 			success: function(result) {
 				console.log(result);
-				window.location.href = "index.html"
+				if (result.code == 0) {
+					app.queryUser(1, 10)
+				} else {
+					app.errorMsg = result.msg
+					app.showError()
+				}
 			},
 		});
 
 	},
 
 	// 遍历数组
-
 	listFor: function() {
 		var html = "";
 		var pageHtml = '';
@@ -139,12 +133,11 @@ window.app = {
 			} else {
 				html += '<td>职员</td>';
 			}
-			// var itemStr = JSON.stringify(item).replace(/\"/g,"'");
-
 
 			html += '<td>';
 			html += '<button type="button" class="btn btn-info" onclick="app.updateUser(' + idx + ')">修改</button>';
-			html += '<button type="button" class="btn btn-warning" onclick="app.deleteUser(' + idx + ')">刪除</button>';
+			html += ' ';
+			html += '<button type="button" class="btn btn-warning" onclick="app.deleteUser(' + item.id + ')">刪除</button>';
 			html += '</td>';
 
 			html += '</tr>';
@@ -164,7 +157,6 @@ window.app = {
 				pageHtml += '<li ><a href="#" onclick="app.queryUser(' + (i + 1) + ',10)">' + (i + 1) + '</a></li>';
 			}
 		}
-
 		if (app.page >= app.total) {
 			pageHtml += '<li class="disabled" ><a href="#">&raquo;</a></li>';
 		} else {
@@ -176,24 +168,6 @@ window.app = {
 
 	// 查询用户信息
 	queryUser: function(page, pageSize) {
-
-		var disabled = $("#save").attr("disabled");
-
-		if(undefined == disabled){
-			// alert("请先保存")
-			var saveFlag = $("#saveFlag");
-			
-			var htmlF = '';
-			htmlF+='<div class="alert alert-warning" >';
-			htmlF+='<a href="#" class="close" data-dismiss="alert">';
-			htmlF+='&times;';
-			htmlF+='</a>';
-			htmlF+='<strong>警告！</strong>请先保存本页数据。';
-			htmlF+='</div>';
-			saveFlag.html(htmlF);
-			return false
-		}
-		console.log(disabled)
 
 		var queryText = $("#queryText").val();
 
@@ -207,13 +181,42 @@ window.app = {
 			},
 			success: (result) => {
 				console.log(result.data);
-				app.userList = result.data;
-				app.page = result.page;
-				app.total = result.total;
+				app.userList = result.data.rows;
+				app.page = result.data.page;
+				app.total = result.data.total;
 				app.listFor()
-
 			}
 		})
 
 	},
+
+	// 校验数据
+	checkInfo: function(item) {
+
+		var code = item.code
+		var name = item.name
+		var age = item.age
+
+		if (code == null || code == "" || code == undefined) {
+			app.errorMsg = "员工代码不能为空"
+			return false;
+		}
+
+		if (name == null || name == "" || name == undefined) {
+			app.errorMsg = "员工姓名不能为空"
+			return false;
+		}
+		// 校验年龄
+		if (age == null || age == "" || age == undefined) {
+			app.errorMsg = "年龄不能为空"
+			return false;
+		}
+		var reg = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/; //年龄是1-120之间有效
+		if (!reg.test(age)) {
+			app.errorMsg = "年龄必须在1~120之间"
+			return false;
+		}
+
+		return true;
+	}
 };

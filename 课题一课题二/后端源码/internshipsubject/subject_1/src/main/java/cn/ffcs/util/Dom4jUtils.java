@@ -3,7 +3,6 @@ package cn.ffcs.util;
 import cn.ffcs.bean.User;
 import cn.ffcs.service.UserService;
 import cn.ffcs.service.serviceImpl.UserServiceImpl;
-import cn.ffcs.vo.UserVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j;
@@ -101,6 +100,19 @@ public class Dom4jUtils {
     }
 
 
+    /**
+     * 解析用户
+     * @param xml
+     * @return
+     */
+    public static Map<String,String> parseUser(String xml){
+        Document document  =Dom4jUtils.getDocument(xml);
+        Element root = document.getRootElement();
+        Element usersElement = root.element("users");
+        return getMap(usersElement.asXML());
+    }
+
+
 
 
 
@@ -112,14 +124,6 @@ public class Dom4jUtils {
 
         System.out.println(maps);
         UserService userService = new UserServiceImpl();
-
-        // 遍历用户
-        maps.forEach((userMap->{
-            ObjectMapper objectMapper = new ObjectMapper();
-            UserVO userVO = objectMapper.convertValue(userMap, UserVO.class);
-            userService.doService(userVO);
-
-        }));
 
 
 

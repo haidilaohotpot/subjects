@@ -1,10 +1,10 @@
 package cn.ffcs.service.serviceImpl;
 
 import cn.ffcs.bean.User;
+import cn.ffcs.bo.UserBO;
 import cn.ffcs.mapper.UserMapper;
 import cn.ffcs.service.UserService;
 import cn.ffcs.util.PagedGridResult;
-import cn.ffcs.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,78 +29,43 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    /**
-     * 静态数据库 用于存储用户信息
-     */
-    private static List<User> userList = new ArrayList<>();
-
-    static {
-        User user = new User();
-        user.setAge(19);
-        user.setCode("999");
-        user.setId(1);
-        user.setName("BU");
-        user.setPosition(1);
-        user.setSex(1);
-
-        userList.add(user);
-
-        User user2 = new User();
-        user2.setAge(19);
-        user2.setCode("999");
-        user2.setId(2);
-        user2.setName("BU");
-        user2.setPosition(1);
-        user2.setSex(1);
-        userList.add(user2);
-    }
-
     @Autowired
     private UserMapper userMapper;
 
     @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
     @Override
-    public void create(UserVO userVO) {
-        log.info("**** add ****");
-        if (null != userVO) {
-            User user = new User();
-            BeanUtils.copyProperties(userVO,user);
-            userMapper.insert(user);
-//            user.setId(userList.size()+1);
-//            userList.add(user);
-        }
+    public void create(UserBO userBO) {
+        log.info("**** add:{} ****", userBO);
+
+        User user = new User();
+        BeanUtils.copyProperties(userBO,user);
+        userMapper.insert(user);
     }
 
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
     @Override
-    public void update(UserVO userVO) {
-        log.info("**** update ****");
-        if (null != userVO && null != userVO.getId()) {
+    public void update(UserBO userBO) {
+        log.info("**** update:{} ****", userBO);
+        User dbUser = userMapper.selectById(userBO.getId());
+        if (null != dbUser) {
             User user = new User();
-            BeanUtils.copyProperties(userVO, user);
+            BeanUtils.copyProperties(userBO, user);
+            user.setCode(dbUser.getCode());
             userMapper.updateById(user);
-            /*userList.removeIf(dbUser->{
-                return dbUser.getId().equals(user.getId());
-            });
-            userList.add(user);*/
         }
+
     }
 
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
     @Override
-    public void delete(UserVO userVO) {
-        log.info("**** delete ****");
-        if (null != userVO && null != userVO.getId()) {
-            User user = new User();
-            BeanUtils.copyProperties(userVO, user);
-            /*userList.removeIf(dbUser->{
-                return dbUser.getId().equals(user.getId());
-            });*/
-            userMapper.deleteById(userVO.getId());
-        }
+    public void delete(Integer id) {
+        log.info("**** delete:{} ****", id);
+        userMapper.deleteById(id);
     }
 
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.SUPPORTS)
     @Override
     public PagedGridResult pageQuery(int page, int pageSize, String queryText) {
-//        return userList;
         // 分页
         PageHelper.startPage(page, pageSize);
 
@@ -110,12 +75,28 @@ public class UserServiceImpl implements UserService {
             queryWrapper.like("name", queryText);
         }
 
+        queryWrapper.orderByDesc("id");
+
         List<User> userList = userMapper.selectList(queryWrapper);
-        PagedGridResult pagedGridResult = setterPagedGrid(page, userList);
-        return pagedGridResult;
+        return setterPagedGrid(page, userList);
+    }
+
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.SUPPORTS)
+    @Override
+    public boolean checkCode(String code) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("code",code);
+        Integer count = userMapper.selectCount(queryWrapper);
+        return code != null && count > 0;
     }
 
 
+    /**
+     * 封装分页参数
+     * @param page
+     * @param list
+     * @return
+     */
     private PagedGridResult setterPagedGrid(Integer page, List<?> list) {
         PageInfo<?> pageList = new PageInfo<>(list);
         PagedGridResult grid = new PagedGridResult();
@@ -125,31 +106,5 @@ public class UserServiceImpl implements UserService {
         grid.setRecords(pageList.getTotal());
         return grid;
     }
-
-    @Override
-    public void doService(UserVO userVO) {
-        log.info("**** put ****");
-        if (null != userVO && StringUtils.isNotBlank(userVO.getMethod())) {
-
-            String method = userVO.getMethod();
-
-            switch (method){
-                case "add":
-                    this.create(userVO);
-                    break;
-                case "delete":
-                    this.delete(userVO);
-                    break;
-                case "update":
-                    this.update(userVO);
-                    break;
-                default:
-                    break;
-            }
-
-        }
-
-    }
-
 
 }

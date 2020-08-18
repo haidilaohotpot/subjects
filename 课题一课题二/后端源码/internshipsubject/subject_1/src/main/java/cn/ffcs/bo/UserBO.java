@@ -1,31 +1,33 @@
-package cn.ffcs.bean;
+package cn.ffcs.bo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.sun.xml.internal.txw2.annotation.XmlElement;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.*;
 
 /**
  * @author xiezengcheng
- * @date 2020-08-06
+ * @date 2020-08-17
  */
-public class User {
+@Data
+public class UserBO {
 
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @NotBlank(message = "员工代码不能为空")
     private String code;
 
+    @NotBlank(message = "用户名不能为空")
     private String name;
 
+    @Min(value = 0, message = "性别选择不正确")
+    @Max(value = 1, message = "性别选择不正确")
     private Integer sex;
 
     private Integer age;
 
+    @Min(value = 1, message = "职位选择不正确")
+    @Max(value = 2, message = "职位选择不正确")
     private Integer position;
 
 
@@ -76,4 +78,6 @@ public class User {
     public void setPosition(Integer position) {
         this.position = position;
     }
+
+
 }

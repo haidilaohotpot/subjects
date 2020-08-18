@@ -14,50 +14,18 @@ import java.util.List;
  * @author xiezengcheng
  * @date 2020-08-06
  */
-@XmlRootElement(name = "root")
 public class JsonResult {
 
     private Integer code;
 
     private String msg;
 
-    private List<User> data;
-
-    // 当前页数
-    private int page;
-    // 总页数
-    private int total;
-    // 总记录数
-    private long records;
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public long getRecords() {
-        return records;
-    }
-
-    public void setRecords(long records) {
-        this.records = records;
-    }
+    private Object data;
 
     public Integer getCode() {
         return code;
     }
-    @XmlElement
+
     public void setCode(Integer code) {
         this.code = code;
     }
@@ -65,15 +33,17 @@ public class JsonResult {
     public String getMsg() {
         return msg;
     }
-    @XmlElement
+
     public void setMsg(String msg) {
         this.msg = msg;
     }
 
-    @XmlElementWrapper(name="users")
-    @XmlElement(name="user")
-    public List<User> getData() {
+    public Object getData() {
         return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     public void setData(List<User> data) {
@@ -87,10 +57,10 @@ public class JsonResult {
         return jsonResult;
     }
 
-    public static JsonResult failed(){
+    public static JsonResult failed(String msg){
         JsonResult jsonResult = new JsonResult();
         jsonResult.setCode(1);
-        jsonResult.setMsg("执行失败");
+        jsonResult.setMsg(msg);
         return jsonResult;
     }
 
@@ -98,11 +68,7 @@ public class JsonResult {
         JsonResult jsonResult = new JsonResult();
         jsonResult.setCode(0);
         jsonResult.setMsg("执行成功");
-        jsonResult.setData((List<User>) data.getRows());
-        jsonResult.setPage(data.getPage());
-        jsonResult.setRecords(data.getRecords());
-        jsonResult.setTotal(data.getTotal());
-
+        jsonResult.setData(data);
         return jsonResult;
     }
 
