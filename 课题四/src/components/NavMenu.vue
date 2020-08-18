@@ -1,12 +1,7 @@
 <template>
-	<el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" 
-	background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-		<el-menu-item index="1">
-			<router-link to="/">主页</router-link>
-		</el-menu-item>
-		<el-menu-item index="2">
-			<router-link to="/operation">新增</router-link>
-		</el-menu-item>
+	<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+		<el-menu-item index="1" @click="toIndex()">主页</el-menu-item>
+		<el-menu-item index="2" @click="toOperator()">新增</el-menu-item>
 	</el-menu>
 </template>
 
@@ -16,12 +11,21 @@
 		data() {
 			return {
 				activeIndex: '1',
-				activeIndex2: '1'
 			};
 		},
 		methods: {
 			handleSelect(key, keyPath) {
 				console.log(key, keyPath);
+			},
+			toIndex() {
+				this.$router.push({
+					path: "/"
+				})
+			},
+			toOperator() {
+				this.$router.push({
+					path: "/operation"
+				})
 			}
 		}
 	}

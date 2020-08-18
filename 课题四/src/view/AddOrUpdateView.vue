@@ -1,22 +1,23 @@
 <template>
-	<el-form ref="form" :model="form" label-width="80px">
+	<el-form ref="form" :model="form" label-width="80px" :rules="rules">
 		<div>
 			<el-divider><i class="el-icon-mobile-phone"></i></el-divider>
 		</div>
-		<el-form-item label="姓名">
+		<el-form-item label="姓名" prop="name">
 			<el-input v-model="form.name"></el-input>
 		</el-form-item>
-		<el-form-item label="地址">
+		<el-form-item label="地址" prop="address">
 			<el-input v-model="form.address"></el-input>
 		</el-form-item>
 		<el-form-item label="出生日期">
 			<el-col :span="11">
-				<el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
-			</el-col>
+				<el-date-picker v-model="form.date" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+				</el-date-picker>
 
+			</el-col>
 		</el-form-item>
 		<el-form-item>
-			<el-button type="primary" @click="onSubmit">提交</el-button>
+			<el-button type="primary" @click="onSubmit('form')">提交</el-button>
 			<el-button @click="onCancel">取消</el-button>
 		</el-form-item>
 	</el-form>
@@ -30,6 +31,24 @@
 					name: '',
 					address: '',
 					date: '1999-06-12',
+				},
+				rules: {
+					name: [{
+						required: true,
+						message: '请输入姓名',
+						trigger: 'blur'
+					}],
+					address: [{
+						required: true,
+						message: '请输入地址',
+						trigger: 'blur'
+					}],
+					date: [{
+						type: 'date',
+						required: true,
+						message: '请选择日期',
+						trigger: 'blur'
+					}]
 				}
 			}
 		},
@@ -47,21 +66,30 @@
 			// console.log(data)
 		},
 		methods: {
-			onSubmit() {
-				console.log('submit!');
+
+			onSubmit(formName) {
 				var that = this
-				var result = {}
-				result.item = that.form
-				if (that.id == -1) {
-					// that.$store.commit('add',result)
-					this.$store.dispatch('add',result)
-					
-				} else {
-					result.idx = that.id
-					// that.$store.commit('update',result)
-					that.$store.dispatch('update',result)
-				}
-				that.onCancel()
+				that.$refs[formName].validate((valid) => {
+					if (valid) {
+						console.log('submit!');
+						var result = {}
+						result.item = that.form
+						if (that.id == -1) {
+							// that.$store.commit('add',result)
+							that.$store.dispatch('add', result)
+
+						} else {
+							result.idx = that.id
+							// that.$store.commit('update',result)
+							that.$store.dispatch('update', result)
+						}
+						that.onCancel()
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+
 			},
 			onCancel() {
 				this.$router.push({
