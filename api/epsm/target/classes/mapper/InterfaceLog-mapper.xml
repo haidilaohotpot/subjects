@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonder4work.epsm.mapper.InterfaceLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wonder4work.epsm.domain.InterfaceLog">
+        <id column="interface_log_id" property="interfaceLogId" />
+        <result column="request_params" property="requestParams" />
+        <result column="response_content" property="responseContent" />
+        <result column="request_status" property="requestStatus" />
+        <result column="response_status" property="responseStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>
