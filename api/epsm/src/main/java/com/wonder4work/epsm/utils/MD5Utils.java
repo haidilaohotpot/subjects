@@ -19,7 +19,7 @@ public class MD5Utils {
 
 	public static void main(String[] args) {
 		try {
-			String md5 = getMD5Str("root@root123");
+			String md5 = getMD5Str("Root@root123");
 			System.out.println(md5);
 		} catch (Exception e) {
 			e.printStackTrace();

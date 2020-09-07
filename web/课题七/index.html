@@ -108,6 +108,9 @@
 		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 		<script src="./app.js"></script>
 		<script>
+			
+			axios.defaults.withCredentials = true;
+			
 			layui.use(['carousel', 'form'], function(){
 				var carousel = layui.carousel
 				,form = layui.form;
@@ -134,9 +137,10 @@
 				
 				//监听提交
 				form.on('submit(demo1)', function(data){
-					axios.defaults.withCredentials = true
-					console.log(axios.defaults)
-					axios.post(window.app.serverUrl + 'validate/login/',data.field).then(function(result){
+					
+					axios.post(window.app.serverUrl + 'validate/login/',data.field,{
+						withCredentials:true
+						}).then(function(result){
 						if(result.data.status == 200 ){
 							app.setCookie('user',JSON.stringify(result.data.data))
 							window.location.href = './user/index.html'

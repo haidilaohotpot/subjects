@@ -121,6 +121,7 @@
 		<script src="../app.js"></script>
 		<script>
 			$(function() {
+				axios.defaults.withCredentials = true;
 				$(".header").load("../header.html");
 				
 			});

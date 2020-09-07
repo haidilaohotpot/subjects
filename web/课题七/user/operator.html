@@ -53,7 +53,7 @@
 				<div class="layui-input-inline">
 					<input type="password" name="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
 				</div>
-				<div class="layui-form-mid layui-word-aux">密码需要8为以上包含大写字母、小写字母、数字、特殊符号中任意三种</div>
+				<div class="layui-form-mid layui-word-aux">密码需要8位以上包含大写字母、小写字母、数字、特殊符号</div>
 			</div>
 
 			<div class="layui-form-item">
@@ -105,12 +105,13 @@
 						}
 					},
 					pass: [
-						/^(?=.*[a-zA-Z])(?=.*[1-9])(?=.*[\W]).{8,}$/, '密码需要8为以上包含大写字母、小写字母、数字、特殊符号中任意三种'
+						/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/, '密码需要8位以上包含大写字母、小写字母、数字、特殊符号'
 					]
 				});
 
 				var userId = window.app.getUrlParam('userId');
 				if (null != userId && undefined != userId && '' != userId) {
+					axios.defaults.withCredentials = true;
 					axios.get(window.app.serverUrl + 'user/query/' + userId).then(function(result) {
 						var user = result.data.data;
 						form.val('example', {

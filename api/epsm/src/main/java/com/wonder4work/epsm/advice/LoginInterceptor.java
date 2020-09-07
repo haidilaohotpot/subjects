@@ -31,9 +31,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
+        // 判断用户是否已经登录了
         String user = CookieUtils.getCookieValue(request, "user",true);
         if (StringUtils.isNotBlank(user)) {
             User loginUser = JsonUtils.jsonToPojo(user, User.class);
+            // 记录登录日志
             if (loginUser != null && loginUser.getUserId() != null) {
                 LoginLog loginLog = new LoginLog();
                 loginLog.setCreateTime(new Date());

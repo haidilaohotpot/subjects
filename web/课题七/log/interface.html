@@ -9,7 +9,7 @@
 	<body class="layui-layout-body">
 		<div class="layui-layout layui-layout-admin">
 			<div class="layui-header header">
-				
+
 			</div>
 
 			<div class="layui-side layui-bg-black">
@@ -61,24 +61,24 @@
 
 
 					<div class="demoTable">
-						相应内容
+						响应内容
 						<div class="layui-inline">
 							<input class="layui-input" name="id" id="responseContent" autocomplete="off">
 						</div>
-						相应状态
+						响应状态
 						<div class="layui-inline">
 							<input class="layui-input" name="id" id="responseStatus" autocomplete="off">
 						</div>
 						时间范围
 						<div class="layui-inline">
 							<div class="layui-input-inline">
-								<input type="text" class="layui-input" id="updateTimeMin" placeholder="yyyy-MM-dd">
+								<input type="text" class="layui-input" id="updateTimeMin" placeholder="">
 							</div>
 						</div>
 						-
 						<div class="layui-inline">
 							<div class="layui-input-inline">
-								<input type="text" class="layui-input" id="updateTimeMax" placeholder="yyyy-MM-dd">
+								<input type="text" class="layui-input" id="updateTimeMax" placeholder="">
 							</div>
 						</div>
 						<button class="layui-btn" data-type="reload">搜索</button>
@@ -119,11 +119,15 @@
 
 				//日期范围
 				laydate.render({
-					elem: '#updateTimeMin'
+					elem: '#updateTimeMin',
+					value: '2020-09-04',
+					isInitValue: true
 				});
 
 				laydate.render({
-					elem: '#updateTimeMax'
+					elem: '#updateTimeMax',
+					value: '2020-09-04',
+					isInitValue: true
 				});
 
 				//方法级渲染
@@ -183,7 +187,7 @@
 								sort: true,
 								width: 100,
 								templet: function(d) {
-									if(d.responseStatus != 200){
+									if (d.responseStatus != 200) {
 										return '<span style="color: red;"><strong>' + d.responseStatus + '</strong></span>'
 									}
 									return '<span style="color: green;">' + d.responseStatus + '</span>'

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonder4work.active.mapper.ActivityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wonder4work.active.domain.Activity">
+        <id column="id" property="id" />
+        <result column="party_branch" property="partyBranch" />
+        <result column="visible_range" property="visibleRange" />
+        <result column="quota" property="quota" />
+        <result column="activity_theme" property="activityTheme" />
+        <result column="summary" property="summary" />
+        <result column="address" property="address" />
+        <result column="activity_start_time" property="activityStartTime" />
+        <result column="activity_end_time" property="activityEndTime" />
+        <result column="sign_up_start_time" property="signUpStartTime" />
+        <result column="sign_up_end_time" property="signUpEndTime" />
+        <result column="activity_require" property="activityRequire" />
+        <result column="activity_desc" property="activityDesc" />
+        <result column="activity_status" property="activityStatus" />
+        <result column="sign_up_num" property="signUpNum" />
+        <result column="comment_num" property="commentNum" />
+        <result column="like_num" property="likeNum" />
+        <result column="cover" property="cover" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="status" property="status" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+
+</mapper>

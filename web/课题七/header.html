@@ -16,6 +16,7 @@
 <script>
 	
 	$(function() {
+		axios.defaults.withCredentials = true;
 		var userCookie = app.getCookie("user");
 		console.log(userCookie)
 		if (userCookie != null && userCookie != undefined && userCookie != '') {

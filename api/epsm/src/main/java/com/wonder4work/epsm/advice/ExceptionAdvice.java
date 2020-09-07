@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -20,12 +21,15 @@ public class ExceptionAdvice {
     private ExceptionService exceptionService;
 
     @ExceptionHandler(value = Throwable.class)
-    public JSONResult handleException(Throwable e) {
+    public JSONResult handleException(HttpServletRequest request,Throwable e) {
+
+        String requestURI = request.getServletPath();
 
         Exception exception = new Exception();
         exception.setCreateTime(new Date());
         exception.setMsg(e.getMessage());
         exception.setUpdateTime(new Date());
+        exception.setApi(requestURI);
         exceptionService.save(exception);
 
         return JSONResult.errorMsg("服务器异常,请联系管理员处理");

@@ -30,6 +30,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/interfaceLog")
 public class InterfaceLogController {
+
     @Autowired
     private InterfaceLogService interfaceLogService;
 

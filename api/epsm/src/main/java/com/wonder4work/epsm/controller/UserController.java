@@ -84,7 +84,7 @@ public class UserController {
     @GetMapping("/query")
     public JSONResult query(@ApiParam(name = "queryMap",value = "条件查询参数",required = false) @RequestParam Map<String, Object> queryMap,
                             @ApiParam(name = "page",value = "页码",required = false) @RequestParam(defaultValue = "1") Integer page,
-                            @ApiParam(name = "pageSize",value = "每页显示多少条",required = false) @RequestParam(defaultValue = "20") Integer pageSize) {
+                            @ApiParam(name = "pageSize",value = "每页显示多少条",required = false) @RequestParam(defaultValue = "20") Integer pageSize){
         return JSONResult.ok(userService.query(queryMap, page, pageSize));
     }
 
@@ -95,7 +95,11 @@ public class UserController {
         return JSONResult.ok(userService.findByUserId(userId));
     }
 
-
+    /**
+     * 获取树胶校验的错误信息
+     * @param result
+     * @return
+     */
     private Map<String, Object> getErrors(BindingResult result) {
 
         List<FieldError> errorList = result.getFieldErrors();

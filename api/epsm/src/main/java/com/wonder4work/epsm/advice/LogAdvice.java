@@ -49,6 +49,7 @@ public class LogAdvice {
             log.info("----请求参数,{}----", JsonUtils.objectToJson(args[0]));
             params = JsonUtils.objectToJson(args[0]);
         }
+        // 记录操作日志
         JSONResult result = new JSONResult();
         InterfaceLog interfaceLog = new InterfaceLog();
         String response = joinPoint.getTarget().getClass()+" ("

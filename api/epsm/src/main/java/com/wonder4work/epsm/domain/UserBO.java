@@ -42,7 +42,7 @@ public class UserBO {
     @Length(max = 12, message = "登录名不能超过12位")
     private String loginName;
 
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[1-9])(?=.*[\\W]).{8,}$", message = "密码格式不正确")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,}", message = "密码格式不正确")
     @NotBlank(message = "密码不能为空")
     private String password;
 

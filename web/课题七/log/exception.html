@@ -117,11 +117,15 @@
 
 				//日期范围
 				laydate.render({
-					elem: '#updateTimeMin'
+					elem: '#updateTimeMin',
+					value: '2020-09-04',
+					isInitValue: true
 				});
 				
 				laydate.render({
-					elem: '#updateTimeMax'
+					elem: '#updateTimeMax',
+					value: '2020-09-04',
+					isInitValue: true
 				});
 
 				//方法级渲染
@@ -163,6 +167,12 @@
 								sort: true,
 								width: 800,
 							},
+							{
+									field: 'api',
+									title: '接口',
+									sort: true,
+									width: 200,
+								},
 							{
 								field: 'createTime',
 								title: '创建时间',
