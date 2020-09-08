@@ -1,0 +1,44 @@
+<div class="layui-logo">课题八 后台管理</div>
+<!-- 头部区域（可配合layui已有的水平导航） -->
+
+<ul class="layui-nav layui-layout-right">
+	<li class="layui-nav-item">
+		<a href="javascript:;" id="name">
+			Wonder4work
+		</a>
+		<!-- <dl class="layui-nav-child"> -->
+			<!-- <dd id="showInfo"><a href="#">基本资料</a></dd> -->
+		<!-- </dl> -->
+	</li>
+	<li class="layui-nav-item" onclick="app.logout()"><a href="#">退出登录</a></li>
+</ul>
+<script src="app.js"></script>
+<script>
+	
+	// $(function() {
+	// 	axios.defaults.withCredentials = true;
+	// 	var userCookie = app.getCookie("user");
+	// 	console.log(userCookie)
+	// 	if (userCookie != null && userCookie != undefined && userCookie != '') {
+	// 		var userInfoStr = decodeURIComponent(userCookie);
+	// 		if (userInfoStr != null && userInfoStr != undefined && userInfoStr != '') {
+	// 			var userInfo = JSON.parse(userInfoStr);
+	// 			// 判断是否是一个对象
+	// 			if (typeof(userInfo) == "object") {
+	// 				app.userIsLogin = true;
+	// 				console.log(userInfo);
+	// 				app.userInfo = userInfo;
+	// 				$('#name').html(app.userInfo.name)
+	// 			} else {
+	// 				app.userIsLogin = false;
+	// 				app.userInfo = {};
+	// 				window.location.href = "../index.html"
+	// 			}
+	// 		}
+	// 	} else {
+	// 		app.userIsLogin = false;
+	// 		app.userInfo = {};
+	// 		window.location.href = "../index.html"
+	// 	}
+	// })
+</script>
