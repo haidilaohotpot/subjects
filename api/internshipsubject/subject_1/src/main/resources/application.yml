@@ -29,7 +29,7 @@ spring:
     # 请求大小限制为500kb
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: cn.ffcs.bean
+  type-aliases-package: com.wonder4work.bean
 pagehelper:
   helper-dialect: mysql
   support-methods-arguments: true

@@ -3,20 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a8918fd9-5405-4556-b875-b918da63f4e2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/../active/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../active/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/active.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../active/active.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../active/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/controller/LogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/controller/LogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/LogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/LogService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/impl/LogServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/impl/LogServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/utils/PagedGridResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/utils/PagedGridResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/advice/LogAdvice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/config/WebConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/controller/LogController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/controller/LogController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/impl/LogServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/impl/LogServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -41,7 +27,7 @@
       <file leaf-file-name="LogAdvice.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/advice/LogAdvice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
+            <state relative-caret-position="770">
               <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
             </state>
           </provider>
@@ -59,8 +45,8 @@
       <file leaf-file-name="ExceptionServiceImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/service/impl/ExceptionServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="59" lean-forward="true" selection-start-line="32" selection-start-column="4" selection-end-line="59" />
+            <state relative-caret-position="276">
+              <caret line="42" column="9" lean-forward="true" selection-start-line="32" selection-start-column="4" selection-end-line="59" />
             </state>
           </provider>
         </entry>
@@ -169,6 +155,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -254,9 +243,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -408,15 +394,15 @@
       <workItem from="1599469657044" duration="14000" />
       <workItem from="1599475389425" duration="616000" />
       <workItem from="1599551718677" duration="752000" />
+      <workItem from="1599634959340" duration="6000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86349000" />
+    <option name="totallyTimeSpent" value="86355000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1455" height="944" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.3296433" />
@@ -438,7 +424,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.47601476" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.26199263" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.29491767" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29491767" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -797,7 +783,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/advice/LogAdvice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
+        <state relative-caret-position="770">
           <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
         </state>
       </provider>
@@ -811,8 +797,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/service/impl/ExceptionServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="59" lean-forward="true" selection-start-line="32" selection-start-column="4" selection-end-line="59" />
+        <state relative-caret-position="276">
+          <caret line="42" column="9" lean-forward="true" selection-start-line="32" selection-start-column="4" selection-end-line="59" />
         </state>
       </provider>
     </entry>
