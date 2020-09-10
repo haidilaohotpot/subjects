@@ -310,8 +310,6 @@
 
 				function deleteUsers(userIdList) {
 
-
-
 					axios.post(window.app.serverUrl + 'user/delete', userIdList).then(function(result) {
 						table.reload('testReload', {
 							url: window.app.serverUrl + 'user/query',

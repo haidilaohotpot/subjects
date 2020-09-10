@@ -2,7 +2,9 @@ package com.wonder4work.active.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wonder4work.active.ActiveApplication;
 import com.wonder4work.active.domain.Activity;
+import com.wonder4work.active.vo.ActivityUserVO;
 import com.wonder4work.active.vo.ActivityVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,14 +21,14 @@ import java.util.Map;
  * @since 2020-09-07
  */
 @Mapper
-public interface ActivityMapper extends BaseMapper<Activity> {
+public interface ActivityUserMapper extends BaseMapper<ActivityUserVO> {
 
     /**
-     * 条件查询活动信息
+     * 条件查询活动报名人员信息
      * @param map 查询参数
-     * @return List<ActivityVO>
+     * @return List<ActivityUserVO>
      */
-    List<ActivityVO> query(@Param("map")Map<String,Object> map);
+    List<ActivityUserVO> query(@Param("map") Map<String, Object> map);
 
 
 }

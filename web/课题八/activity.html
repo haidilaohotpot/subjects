@@ -53,7 +53,7 @@
 						<div class="layui-inline">
 							<input class="layui-input" name="id" id="partyBranch" autocomplete="off">
 						</div>
-						
+
 						活动主题
 						<div class="layui-inline">
 							<input class="layui-input" name="id" id="activityTheme" autocomplete="off">
@@ -80,8 +80,28 @@
 
 				</div>
 			</div>
-
-
+			<!-- -1 已取消 0 报名已结束 1 报名中 2 进行中 3 活动已结束 4 未开始 -->
+			<script type="text/html" id="activityStatusTemplet">
+				{{#  if(d.activityStatus==-1){ }}
+			     已取消
+			  {{#  } else if(d.activityStatus==0) { }}
+			     报名已结束
+				 {{#  } else if(d.activityStatus==1) { }}
+				    报名中
+					{{#  } else if(d.activityStatus==2) { }}
+					   进行中
+					   {{#  } else if(d.activityStatus==3) { }}
+					      活动已结束
+						  {{#  } else if(d.activityStatus==4) { }}
+						     未开始
+			  {{#  } else { }}
+				 
+			  {{#  } }}
+			</script>
+			<script type="text/html" id="barDemo">
+				<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+				  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">取消</a>
+				</script>
 
 			<div class="layui-footer">
 				<!-- 底部固定区域 -->
@@ -181,7 +201,8 @@
 								field: 'activityStatus',
 								title: '状态',
 								sort: true,
-								width: 200
+								width: 200,
+								templet: '#activityStatusTemplet'
 							},
 							{
 								field: 'signUpNum',
@@ -201,12 +222,55 @@
 								sort: true,
 								width: 200
 							},
+							{
+								fixed: 'right',
+								width: 120,
+								align: 'right',
+								toolbar: '#barDemo'
+							}
 						]
 					],
 					id: 'testReload',
 					page: true,
+					toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+						,
 					height: 500
 				});
+
+
+				// 弹出窗口
+				function pop(title, content) {
+					var that = this;
+					//多窗口模式，层叠置顶
+					layer.open({
+						type: 2 //此处以iframe举例
+							,
+						title: title,
+						area: ['790px', '550px'],
+						shade: 0,
+						maxmin: true,
+						// offset: [ //为了演示，随机坐标
+						// 	Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+						// ],
+						content: content,
+						zIndex: layer.zIndex //重点1
+							,
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						},
+						end: function(index, layero) {
+
+							table.reload('testReload', {
+								url: window.app.serverUrl + 'activity/query',
+								page: {
+									page: 1 //重新从第 1 页开始
+								}
+							}, 'data');
+
+							// return false; 
+						}
+					});
+				}
 
 				var $ = layui.$,
 					active = {
@@ -230,6 +294,61 @@
 						}
 					};
 
+				//监听头工具栏事件
+				table.on('toolbar(user)', function(obj) {
+					var checkStatus = table.checkStatus(obj.config.id),
+						data = checkStatus.data; //获取选中的数据
+					switch (obj.event) {
+						case 'add':
+							// layer.msg('您不是管理员，无法执行此操作！');
+							pop('新增活动','./signUpPage.html')
+							break;
+						case 'update':
+							if (data.length === 0) {
+								layer.msg('请选择一行');
+							} else if (data.length > 1) {
+								layer.msg('只能同时编辑一个');
+							} else {
+								layer.msg('您不是管理员，无法执行此操作！');
+							}
+							break;
+						case 'delete':
+							if (data.length === 0) {
+								layer.msg('请选择一行');
+							} else {
+								layer.msg('请选择一行');
+							}
+							break;
+					};
+				});
+
+				//监听行工具事件
+				table.on('tool(user)', function(obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+					var data = obj.data //获得当前行数据
+						,
+						layEvent = obj.event; //获得 lay-event 对应的值
+					if (layEvent === 'detail') {
+						pop(data.activityTheme, './signUpDetail.html?id=' + data.id)
+					} else if (layEvent === 'del') {
+						layer.confirm('确定取消活动吗？', function(index) {
+							layer.close(index);
+							//向服务端发送指令
+							axios.post(window.app.serverUrl + 'activity/cancel/'+data.id).then(function(result){
+								
+								if(result.data.status == 200){
+									
+									layer.msg('取消成功');
+									table.reload('testReload', {
+										
+									}, 'data');
+								}else{
+									layer.msg(result.data.msg);
+								}
+								
+							})
+						});
+					}
+				});
 
 
 				$('.demoTable .layui-btn').on('click', function() {

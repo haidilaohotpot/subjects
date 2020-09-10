@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wonder4work.active.mapper.ActivityUserMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ActivityUserVOResultMap" type="com.wonder4work.active.vo.ActivityUserVO">
+        <id column="id" property="id" />
+        <result column="activityId" property="activityId" />
+        <result column="userId" property="userId" />
+        <result column="img" property="img" />
+        <result column="username" property="name" />
+        <result column="partyBranch" property="partyBranch" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+    </resultMap>
+
+
+    <select id="query" parameterType="map" resultMap="ActivityUserVOResultMap">
+        SELECT
+          tau.id id,
+          tau.activity_id activityId,
+          tau.user_id userId,
+          tu.img img,
+          tu.name username,
+          tau.create_time createTime,
+          tau.update_time updateTime,
+          tpb.party_branch_name partyBranch
+        FROM
+          t_activity_user tau
+        LEFT JOIN
+          t_user tu
+        ON
+          tau.user_id = tu.id
+        LEFT JOIN
+          t_party_branch tpb
+        ON
+          tu.party_branch = tpb.id
+        LEFT JOIN
+          t_activity ta
+        ON
+          tau.activity_id = ta.id
+
+        <where>
+
+            <if test="map.name!=null">
+                and tu.name = like CONCAT('%',#{map.name},'%')
+            </if>
+            <if test="map.partyBranch!=null">
+                and tpb.party_branch_name like CONCAT('%',#{map.partyBranch},'%')
+            </if>
+            <if test="map.activityId != null">
+                and tau.activity_id = #{map.activityId}
+            </if>
+        </where>
+        ORDER BY
+          tau.create_time DESC
+    </select>
+
+</mapper>

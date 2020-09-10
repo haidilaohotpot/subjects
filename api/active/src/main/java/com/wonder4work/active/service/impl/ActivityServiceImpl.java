@@ -5,14 +5,21 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.wonder4work.active.domain.Activity;
 import com.wonder4work.active.domain.Log;
+import com.wonder4work.active.enums.ActivityStatusEnum;
 import com.wonder4work.active.mapper.ActivityMapper;
+import com.wonder4work.active.mapper.ActivityUserMapper;
 import com.wonder4work.active.service.ActivityService;
 import com.wonder4work.active.utils.PageUtil;
 import com.wonder4work.active.utils.PagedGridResult;
+import com.wonder4work.active.vo.ActivityUserVO;
+import com.wonder4work.active.vo.ActivityVO;
 import io.swagger.models.auth.In;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,36 +31,85 @@ import java.util.Map;
  * @author wonder4work
  * @since 2020-09-07
  */
+@Slf4j
 @Service
 public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> implements ActivityService {
 
+    @Autowired
+    private ActivityUserMapper activityUserMapper;
 
     @Override
     public PagedGridResult query(Map<String, Object> queryMap, Integer page, Integer pageSize) {
-        QueryWrapper<Activity> queryWrapper = new QueryWrapper<>();
+
 
         String partyBranch = (String) queryMap.get("partyBranch");
         String activityTheme = (String) queryMap.get("activityTheme");
         String activityStatus = (String) queryMap.get("activityStatus");
 
+        Map<String, Object> map = new HashMap<>();
+
         if (StringUtils.isNotBlank(partyBranch)) {
-            queryWrapper.like("party_branch", partyBranch);
+            map.put("partyBranch", partyBranch);
         }
 
         if (StringUtils.isNotBlank(activityTheme)) {
-            queryWrapper.like("activity_theme", activityTheme);
+            map.put("activityTheme", activityTheme);
         }
+
         if (StringUtils.isNotBlank(activityStatus)) {
-            queryWrapper.like("activity_status", activityStatus);
+            map.put("activityStatus", activityStatus);
         }
-
-
-        queryWrapper.orderByDesc("create_time");
 
         PageHelper.startPage(page, pageSize);
-        List<Activity> logList = this.list(queryWrapper);
 
-        return PageUtil.setterPagedGrid(page, logList);
+        List<ActivityVO> activityVOList = this.baseMapper.query(map);
+
+        return PageUtil.setterPagedGrid(page, activityVOList);
     }
 
+    @Override
+    public PagedGridResult signUpDetail(Map<String, Object> queryMap, Integer page, Integer pageSize) {
+        String partyBranch = (String) queryMap.get("partyBranch");
+        String name = (String) queryMap.get("name");
+        String activityId = (String) queryMap.get("activityId");
+
+        Map<String, Object> map = new HashMap<>();
+
+        if (StringUtils.isNotBlank(partyBranch)) {
+            map.put("partyBranch", partyBranch);
+        }
+
+        if (StringUtils.isNotBlank(name)) {
+            map.put("activityTheme", name);
+        }
+
+        if (StringUtils.isNotBlank(activityId)) {
+            map.put("activityId", activityId);
+        }
+
+        PageHelper.startPage(page, pageSize);
+
+        List<ActivityUserVO> activityUserVOList = activityUserMapper.query(map);
+
+        return PageUtil.setterPagedGrid(page, activityUserVOList);
+    }
+
+    @Override
+    public void create(Activity activity) {
+        log.info(activity.toString());
+        activity.setActivityStatus(4);
+        activity.setCommentNum(0);
+        activity.setIsDel(0);
+        activity.setLikeNum(0);
+        activity.setSignUpNum(0);
+        this.save(activity);
+    }
+
+    @Override
+    public void cancel(Integer activityId) {
+
+        Activity activity = this.getById(activityId);
+        activity.setActivityStatus(ActivityStatusEnum.CANCEL.getValue());
+        this.updateById(activity);
+    }
 }

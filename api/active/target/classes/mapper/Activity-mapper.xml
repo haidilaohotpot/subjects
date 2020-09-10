@@ -28,4 +28,75 @@
         <result column="is_del" property="isDel" />
     </resultMap>
 
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ActivityVOResultMap" type="com.wonder4work.active.vo.ActivityVO">
+        <id column="id" property="id" />
+        <result column="partyBranch" property="partyBranch" />
+        <result column="visibleRange" property="visibleRange" />
+        <result column="quota" property="quota" />
+        <result column="activityTheme" property="activityTheme" />
+        <result column="summary" property="summary" />
+        <result column="address" property="address" />
+        <result column="activityStartTime" property="activityStartTime" />
+        <result column="activityEndTime" property="activityEndTime" />
+        <result column="signUpStartTime" property="signUpStartTime" />
+        <result column="signUpEndTime" property="signUpEndTime" />
+        <result column="activityRequire" property="activityRequire" />
+        <result column="activityDesc" property="activityDesc" />
+        <result column="activityStatus" property="activityStatus" />
+        <result column="signUpNum" property="signUpNum" />
+        <result column="commentNum" property="commentNum" />
+        <result column="likeNum" property="likeNum" />
+        <result column="cover" property="cover" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="status" property="status" />
+    </resultMap>
+
+
+    <select id="query" parameterType="map" resultMap="ActivityVOResultMap">
+        SELECT
+          ta.id id,
+          tpb.party_branch_name partyBranch,
+          ta.visible_range visibleRange,
+          ta.quota quota,
+          ta.activity_theme activityTheme,
+          ta.summary summary,
+          ta.address address,
+          ta.activity_start_time activityStartTime,
+          ta.activity_end_time activityEndTime,
+          ta.sign_up_start_time signUpStartTime,
+          ta.sign_up_end_time signUpEndTime,
+          ta.activity_require activityRequire,
+          ta.activity_desc activityDesc,
+          ta.activity_status activityStatus,
+          ta.sign_up_num signUpNum,
+          ta.comment_num commentNum,
+          ta.like_num likeNum,
+          ta.cover cover,
+          ta.create_time createTime,
+          ta.update_time updateTime,
+          ta.status status
+        FROM
+          t_activity ta
+        LEFT JOIN
+          t_party_branch tpb
+        ON
+          ta.party_branch = tpb.id
+        <where>
+            <if test="map.activityTheme!=null">
+                and ta.activity_theme like CONCAT('%',#{map.activityTheme},'%')
+            </if>
+            <if test="map.activityStatus!=null">
+                and ta.activity_status = #{map.activityStatus}
+            </if>
+            <if test="map.partyBranch!=null">
+                and tpb.party_branch_name like CONCAT('%',#{map.partyBranch},'%')
+            </if>
+        </where>
+        ORDER BY
+          ta.update_time DESC
+    </select>
+
 </mapper>

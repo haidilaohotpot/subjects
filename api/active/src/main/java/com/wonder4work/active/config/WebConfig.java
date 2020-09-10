@@ -17,6 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 
 
+
     //注册servlet 验证码
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {

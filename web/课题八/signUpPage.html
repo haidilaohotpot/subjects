@@ -42,8 +42,18 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">所属党支部</label>
 				<div class="layui-input-inline">
-					<input type="text" name="name" lay-verify="required|name" lay-reqtext="必填项，岂能为空？" placeholder="请输入" autocomplete="off"
+					<input type="text" disabled="disabled" name="partyBranchName" lay-verify="required" value="学生第五党支部" lay-reqtext="必填项，岂能为空？" autocomplete="off"
 					 class="layui-input">
+					
+				</div>
+			</div>
+
+
+<div class="layui-form-item" hidden="hidden">
+				<div class="layui-input-inline">
+					<input type="text" disabled="disabled" name="partyBranch" lay-verify="required" value="1" lay-reqtext="必填项，岂能为空？" autocomplete="off"
+					 class="layui-input">
+					
 				</div>
 			</div>
 
@@ -51,10 +61,11 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">可见范围</label>
 					<div class="layui-input-inline">
-						<select name="userType" lay-verify="required" lay-search="">
-							<option value="0">全部可见</option>
-							<option value="1">第四党支部</option>
-							<option value="2">第一党支部</option>
+						<!-- 可见范围 0 不可见 1 部分可见 2 全部可见 -->
+						<select name="visibleRange" lay-verify="required" lay-search="">
+							<option value="0">不可见</option>
+							<option value="1">部分可见</option>
+							<option value="2">全部可见</option>
 						</select>
 					</div>
 				</div>
@@ -64,7 +75,7 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">报名名额</label>
 					<div class="layui-input-inline">
-						<input type="number" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input" placeholder="请输入名额">
+						<input type="number" name="quota" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入名额">
 					</div>
 				</div>
 			</div>
@@ -83,7 +94,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">活动主题</label>
 				<div class="layui-input-inline" style="width: 560px;">
-					<input type="text" name="name" lay-verify="required|name" lay-reqtext="必填项，岂能为空？" placeholder="请输入" autocomplete="off"
+					<input type="text" name="activityTheme" lay-verify="required" lay-reqtext="必填项，岂能为空？" placeholder="请输入活动主题" autocomplete="off"
 					 class="layui-input">
 				</div>
 			</div>
@@ -92,7 +103,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">活动摘要</label>
 				<div class="layui-input-inline" style="width: 560px;">
-					<input type="text" name="name" lay-verify="required|name" lay-reqtext="必填项，岂能为空？" placeholder="请输入" autocomplete="off"
+					<input type="text" name="summary" lay-verify="required" lay-reqtext="必填项，岂能为空？" placeholder="请输入活动摘要" autocomplete="off"
 					 class="layui-input">
 				</div>
 			</div>
@@ -100,7 +111,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">活动地址</label>
 				<div class="layui-input-inline" style="width: 560px;">
-					<input type="text" name="name" lay-verify="required|name" lay-reqtext="必填项，岂能为空？" placeholder="请输入" autocomplete="off"
+					<input type="text" name="address" lay-verify="required" lay-reqtext="必填项，岂能为空？" placeholder="请输入活动地址" autocomplete="off"
 					 class="layui-input">
 				</div>
 			</div>
@@ -109,13 +120,13 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">活动开始时间</label>
 					<div class="layui-input-block">
-						<input type="text" name="date" id="date1" autocomplete="off" class="layui-time layui-input">
+						<input type="text" name="activityStartTime" id="date1" autocomplete="off" class="layui-time layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">活动结束时间</label>
 					<div class="layui-input-block">
-						<input type="text" name="date" id="date2" autocomplete="off" class="layui-time layui-input">
+						<input type="text" name="activityEndTime" id="date2" autocomplete="off" class="layui-time layui-input">
 					</div>
 				</div>
 			</div>
@@ -124,13 +135,13 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">报名开始时间</label>
 					<div class="layui-input-block">
-						<input type="text" name="date" id="date3" autocomplete="off" class="layui-time layui-input">
+						<input type="text" name="signUpStartTime" id="date3" autocomplete="off" class="layui-time layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">报名结束时间</label>
 					<div class="layui-input-block">
-						<input type="text" name="date" id="date4" autocomplete="off" class="layui-time layui-input">
+						<input type="text" name="signUpEndTime" id="date4" autocomplete="off" class="layui-time layui-input">
 					</div>
 				</div>
 			</div>
@@ -138,7 +149,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">活动要求</label>
 				<div class="layui-input-inline" style="width: 560px;">
-					<input type="text" name="name" lay-verify="required|name" lay-reqtext="必填项，岂能为空？" placeholder="请输入" autocomplete="off"
+					<input type="text" name="activityRequire" lay-verify="required" lay-reqtext="必填项，岂能为空？" placeholder="请输入活动要求" autocomplete="off"
 					 class="layui-input">
 				</div>
 			</div>
@@ -148,7 +159,7 @@
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">活动描述</label>
 				<div class="layui-input-block" style="width: 580px;">
-					<textarea placeholder="请输入" class="layui-textarea"></textarea>
+					<textarea name="activityDesc" placeholder="请输入活动描述" class="layui-textarea"></textarea>
 				</div>
 			</div>
 
@@ -208,36 +219,32 @@
 				//日期范围
 				laydate.render({
 					elem: '#date1',
-					value: '2020-09-04',
+					type: 'datetime',
 					isInitValue: true
 				});
 				//日期范围
 				laydate.render({
 					elem: '#date2',
-					value: '2020-09-04',
+					type: 'datetime',
 					isInitValue: true
 				});
 
 				//日期范围
 				laydate.render({
 					elem: '#date3',
-					value: '2020-09-04',
+					type: 'datetime',
 					isInitValue: true
 				});
 
 				//日期范围
 				laydate.render({
 					elem: '#date4',
-					value: '2020-09-04',
+					type: 'datetime',
 					isInitValue: true
 				});
 				//自定义验证规则
 				form.verify({
-					nickNmae: function(value) {
-						if (value.length < 5) {
-							return '昵称至少得5个字符';
-						}
-					},
+					
 					name: function(value) {
 						if (value.length < 2 || value.length >= 10) {
 							return '姓名需要在2-10个字符以内';
@@ -255,28 +262,19 @@
 					}
 				});
 
-				var userId = window.app.getUrlParam('userId');
-				if (null != userId && undefined != userId && '' != userId) {
-					axios.defaults.withCredentials = true;
-					axios.get(window.app.serverUrl + 'user/query/' + userId).then(function(result) {
-						var user = result.data.data;
-						form.val('example', {
-							"userId": user.userId,
-							"name": user.name,
-							"loginName": user.loginName,
-							"phone": user.phone,
-							"accountType": user.accountType,
-							"userType": user.userType
-						});
-					})
-				}
+				// var userId = window.app.getUrlParam('userId');
+				
 
 				//监听提交
 				form.on('submit(demo1)', function(data) {
 
-					axios.post(window.app.serverUrl + 'user/createOrUpdate/', data.field).then(function(result) {
+					axios.post(window.app.serverUrl + 'activity/create', data.field).then(function(result) {
 						if (result.data.status == 200) {
-							parent.layer.close(parent.layer.index)
+							layer.confirm('添加成功', function(index) {
+								layer.close(index);
+								//向服务端发送删除指令
+								parent.layer.close(parent.layer.index)
+							});
 						} else {
 							layer.msg(JSON.stringify(result.data.msg));
 						}

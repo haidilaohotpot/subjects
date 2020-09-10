@@ -1,10 +1,19 @@
 package com.wonder4work.active.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wonder4work.active.bo.UserBO;
 import com.wonder4work.active.domain.User;
 import com.wonder4work.active.mapper.UserMapper;
 import com.wonder4work.active.service.UserService;
+import com.wonder4work.active.utils.MD5Utils;
+import com.wonder4work.active.vo.UserVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,5 +25,38 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+
+    @Override
+    public UserVO login(String username, String password) throws Exception {
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("phone", username);
+        map.put("password", MD5Utils.getMD5Str(password));
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.allEq(map);
+        User dbUser = this.getOne(queryWrapper);
+
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(dbUser, userVO);
+        return userVO;
+    }
+
+
+    @Override
+    public UserVO registe(UserBO userBO) {
+
+        User user = new User();
+        BeanUtils.copyProperties(userBO, user);
+        boolean save = this.save(user);
+
+        UserVO userVO
+                = new UserVO();
+        BeanUtils.copyProperties(user, userVO);
+        return userVO;
+    }
+
 
 }

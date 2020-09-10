@@ -64,13 +64,13 @@
 		<!-- LoginForm -->
 		<div class="zyl_lofo_main">
 			<fieldset class="layui-elem-field layui-field-title zyl_mar_02">
-				<legend>欢迎登陆 - 课题八 </legend>
+				<legend>欢迎登陆 - </legend>
 			</fieldset>
 			<div class="layui-row layui-col-space15">
 				<form class="layui-form zyl_pad_01" action="">
 					<div class="layui-col-sm12 layui-col-md12">
 						<div class="layui-form-item">
-							<input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" placeholder="账号" class="layui-input">
+							<input type="tel" name="username" lay-verify="required|phone" autocomplete="off" placeholder="手机号" class="layui-input">
 							<i class="layui-icon layui-icon-username zyl_lofo_icon"></i>
 						</div>
 					</div>
@@ -133,6 +133,7 @@
 				var carousel = layui.carousel,
 					form = layui.form;
 
+				
 				//自定义验证规则
 				form.verify({
 
@@ -161,7 +162,7 @@
 						shade: 0,
 						maxmin: true,
 						offset: [ //为了演示，随机坐标
-							30,30 
+							30, 30
 						],
 						content: content,
 						zIndex: layer.zIndex //重点1
@@ -189,15 +190,15 @@
 
 				//监听提交
 				form.on('submit(demo1)', function(data) {
-
-					axios.post(window.app.serverUrl + 'validate/login/', data.field, {
+					axios.defaults.withCredentials = true;
+					axios.post(window.app.serverUrl + 'user/login/', data.field, {
 						withCredentials: true
 					}).then(function(result) {
 						if (result.data.status == 200) {
 							app.setCookie('user', JSON.stringify(result.data.data))
-							window.location.href = './user/index.html'
+							window.location.href = './activity.html'
 						} else {
-							layer.msg("用户名或密码错误");
+							layer.msg(result.data.msg);
 						}
 					})
 					return false;

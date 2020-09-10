@@ -2,7 +2,9 @@ package com.wonder4work.active.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wonder4work.active.bo.UserBO;
 import com.wonder4work.active.domain.User;
+import com.wonder4work.active.vo.UserVO;
 
 /**
  * <p>
@@ -14,4 +16,18 @@ import com.wonder4work.active.domain.User;
  */
 public interface UserService extends IService<User> {
 
+    /**
+     * 用户登录
+     * @param username 手机号
+     * @param password 密码
+     * @return UserVO
+     */
+    UserVO login(String username, String password) throws Exception;
+
+    /**
+     * 注册
+     * @param userBO 用户信息
+     * @return UserVO
+     */
+    UserVO registe(UserBO userBO);
 }

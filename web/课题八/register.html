@@ -15,12 +15,12 @@
 		</blockquote>
 
 		<form class="layui-form" action="" lay-filter="example">
-		
+
 			<div class="layui-form-item">
 				<label class="layui-form-label">姓名</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" lay-verify="required|name" lay-reqtext="姓名是必填项，岂能为空？" placeholder="请输入姓名" autocomplete="off"
-					 class="layui-input">
+					<input type="text" name="name" lay-verify="required|name" lay-reqtext="姓名是必填项，岂能为空？" placeholder="请输入姓名"
+					 autocomplete="off" class="layui-input">
 				</div>
 			</div>
 
@@ -44,11 +44,12 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">密码</label>
 				<div class="layui-input-inline">
-					<input type="password" name="password" id="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					<input type="password" name="password" id="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off"
+					 class="layui-input">
 				</div>
 				<div class="layui-form-mid layui-word-aux">密码需要8位以上包含大写字母、小写字母、数字、特殊符号</div>
 			</div>
-			
+
 			<div class="layui-form-item">
 				<label class="layui-form-label">重复密码</label>
 				<div class="layui-input-inline">
@@ -61,7 +62,7 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">党支部</label>
 					<div class="layui-input-inline">
-						<select name="userType" lay-verify="required" lay-search="">
+						<select name="partyBranch" id='partyBranch' lay-verify="required" lay-search="">
 							<option value="0">第五党支部</option>
 							<option value="1">第四党支部</option>
 							<option value="2">第一党支部</option>
@@ -76,12 +77,14 @@
 				</div>
 			</div>
 		</form>
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
 		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 		<script src="./app.js"></script>
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
+			
+			
 			layui.use(['form', 'layedit', 'laydate'], function() {
 				var form = layui.form,
 					$ = layui.$,
@@ -91,6 +94,18 @@
 				//创建一个编辑器
 				var editIndex = layedit.build('LAY_demo_editor');
 
+
+
+		axios.get(window.app.serverUrl + 'partyBranch/list').then(function(result) {
+			console.log(result.data.data)
+			var html = '';
+			result.data.data.forEach(function(item){
+				html += '<option value="'+item.id+'">'+item.partyBranchName+'</option>'
+			})
+			$('#partyBranch').html(html)
+			form.render();
+		})
+
 				//自定义验证规则
 				form.verify({
 					nickNmae: function(value) {
@@ -99,48 +114,37 @@
 						}
 					},
 					name: function(value) {
-						if (value.length< 2 || value.length >= 10) {
+						if (value.length < 2 || value.length >= 10) {
 							return '姓名需要在2-10个字符以内';
 						}
 					},
 					pass: [
 						/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/, '密码需要8位以上包含大写字母、小写字母、数字、特殊符号'
 					],
-					repassword: function(value){
+					repassword: function(value) {
 						var password = $('#password').val();
-						console.log(password+value)
-						if(value!=password){
+						console.log(password + value)
+						if (value != password) {
 							return '两次密码不一致'
 						}
 					}
 				});
 
-				var userId = window.app.getUrlParam('userId');
-				if (null != userId && undefined != userId && '' != userId) {
-					axios.defaults.withCredentials = true;
-					axios.get(window.app.serverUrl + 'user/query/' + userId).then(function(result) {
-						var user = result.data.data;
-						form.val('example', {
-							"userId": user.userId,
-							"name": user.name,
-							"loginName": user.loginName,
-							"phone": user.phone,
-							"accountType": user.accountType,
-							"userType": user.userType
-						});
-					})
-				}
-
 				//监听提交
 				form.on('submit(demo1)', function(data) {
-					
-					axios.post(window.app.serverUrl + 'user/createOrUpdate/',data.field).then(function(result){
-						if(result.data.status == 200 ){
-							parent.layer.close(parent.layer.index)
-						}else{
+
+					axios.post(window.app.serverUrl + 'user/registe', data.field).then(function(result) {
+						if (result.data.status == 200) {
+							layer.confirm('注册成功，请登录', function(index) {
+								layer.close(index);
+								//向服务端发送删除指令
+								parent.layer.close(parent.layer.index)
+							});
+							
+						} else {
 							layer.msg(JSON.stringify(result.data.msg));
 						}
-						
+
 					})
 					return false;
 				});
