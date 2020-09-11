@@ -47,11 +47,11 @@ window.app = {
 
 	logout: function() {
 		axios.defaults.withCredentials = true;
-		axios.post(app.serverUrl + 'validate/logout').then(function(response) {
+		axios.post(app.serverUrl + 'user/logout').then(function(response) {
 			console.log(response)
 			if (response.data.status == 200) {
 				app.deleteCookie('user')
-				window.location.href = '../index.html';
+				window.location.href = 'index.html';
 			} else {
 				alert(response.data.msg);
 			}

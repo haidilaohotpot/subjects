@@ -11,6 +11,7 @@ import com.wonder4work.active.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,17 @@ import java.util.Map;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
+
+    @Override
+    public User findByPhone(String phone) {
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone", phone);
+        User one = this.getOne(queryWrapper);
+
+
+        return one;
+    }
 
     @Override
     public UserVO login(String username, String password) throws Exception {
@@ -46,10 +58,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     @Override
-    public UserVO registe(UserBO userBO) {
+    public UserVO registe(UserBO userBO) throws Exception {
 
         User user = new User();
         BeanUtils.copyProperties(userBO, user);
+
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
+        user.setStatus(1);
+        user.setId(0);
+        user.setPassword(MD5Utils.getMD5Str(user.getPassword()));
         boolean save = this.save(user);
 
         UserVO userVO

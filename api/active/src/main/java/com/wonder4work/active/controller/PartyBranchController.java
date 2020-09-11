@@ -9,8 +9,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.spring.web.json.Json;
 
 /**
  * <p>
@@ -35,6 +37,15 @@ public class PartyBranchController {
 
         return JSONResult.ok(partyBranchService.list());
 
+    }
+
+    @ApiOperation(value = "xiezengcheng:根据ID查询党支部信息",notes = "根据ID查询党支部信息",response = PartyBranch.class)
+    @GetMapping("/findById/{id}")
+    public JSONResult findById(@PathVariable(value = "id")Integer id){
+
+        PartyBranch partyBranch = partyBranchService.getById(id);
+
+        return JSONResult.ok(partyBranch);
     }
 
 }

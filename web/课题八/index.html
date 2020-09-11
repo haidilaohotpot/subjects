@@ -191,7 +191,7 @@
 				//监听提交
 				form.on('submit(demo1)', function(data) {
 					axios.defaults.withCredentials = true;
-					axios.post(window.app.serverUrl + 'user/login/', data.field, {
+					axios.post(window.app.serverUrl + 'user/login', data.field, {
 						withCredentials: true
 					}).then(function(result) {
 						if (result.data.status == 200) {

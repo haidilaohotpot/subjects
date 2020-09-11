@@ -2,6 +2,7 @@ package com.wonder4work.active.controller;
 
 
 import com.wonder4work.active.bo.UserBO;
+import com.wonder4work.active.domain.User;
 import com.wonder4work.active.service.UserService;
 import com.wonder4work.active.utils.*;
 import com.wonder4work.active.vo.UserVO;
@@ -43,6 +44,16 @@ public class UserController {
     public JSONResult registe(@ApiParam(name = "userBO",value = "用户信息",required = true) @RequestBody UserBO userBO, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         log.info(userBO.toString());
+        if (StringUtils.isBlank(userBO.getPhone())) {
+            JSONResult.errorMsg("手机号不能为空");
+        }
+
+        User byPhone = userService.findByPhone(userBO.getPhone());
+
+
+        if (byPhone != null && byPhone.getId() != null) {
+            return JSONResult.errorMsg("手机号已经存在");
+        }
 
         UserVO userVO = userService.registe(userBO);
 
@@ -64,9 +75,9 @@ public class UserController {
         }
 
         boolean checkVerifyCode = CodeUtil.checkVerifyCode(request, code);
-        if (!checkVerifyCode) {
-            return JSONResult.errorMsg("验证码错误");
-        }
+//        if (!checkVerifyCode) {
+//            return JSONResult.errorMsg("验证码错误");
+//        }
 
         if (!MobileEmailUtils.checkMobileIsOk(username)){
             return JSONResult.errorMsg("用户名密码不正确");

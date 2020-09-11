@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,9 +46,12 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         String partyBranch = (String) queryMap.get("partyBranch");
         String activityTheme = (String) queryMap.get("activityTheme");
         String activityStatus = (String) queryMap.get("activityStatus");
+        String userId = (String) queryMap.get("userId");
 
         Map<String, Object> map = new HashMap<>();
-
+        if (StringUtils.isNotBlank(userId)){
+            map.put("userId", userId);
+        }
         if (StringUtils.isNotBlank(partyBranch)) {
             map.put("partyBranch", partyBranch);
         }
@@ -102,8 +106,24 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         activity.setIsDel(0);
         activity.setLikeNum(0);
         activity.setSignUpNum(0);
+        activity.setCreateTime(new Date());
+        activity.setUpdateTime(new Date());
+        if (StringUtils.isBlank(activity.getCover())) {
+            activity.setCover("http://www.wonder4work.com/image/logo.png");
+        }
         this.save(activity);
     }
+
+    @Override
+    public void update(Activity activity) {
+        log.info(activity.toString());
+        activity.setUpdateTime(new Date());
+
+        this.updateById(activity);
+    }
+
+
+
 
     @Override
     public void cancel(Integer activityId) {

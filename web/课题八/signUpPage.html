@@ -39,10 +39,10 @@
 		<form class="layui-form" action="" lay-filter="example">
 
 
-			<div class="layui-form-item">
+			<div class="layui-form-item" id="pbn">
 				<label class="layui-form-label">所属党支部</label>
 				<div class="layui-input-inline">
-					<input type="text" disabled="disabled" name="partyBranchName" lay-verify="required" value="学生第五党支部" lay-reqtext="必填项，岂能为空？" autocomplete="off"
+					<input type="text" disabled="disabled" name="partyBranchName" id="partyBranchName" lay-verify="required" value="学生第五党支部" lay-reqtext="必填项，岂能为空？" autocomplete="off"
 					 class="layui-input">
 					
 				</div>
@@ -51,11 +51,19 @@
 
 <div class="layui-form-item" hidden="hidden">
 				<div class="layui-input-inline">
-					<input type="text" disabled="disabled" name="partyBranch" lay-verify="required" value="1" lay-reqtext="必填项，岂能为空？" autocomplete="off"
+					<input type="text" disabled="disabled" name="partyBranch" id="partyBranch"  lay-verify="" value="1" lay-reqtext="必填项，岂能为空？" autocomplete="off"
 					 class="layui-input">
 					
 				</div>
 			</div>
+			
+			<div class="layui-form-item" hidden="hidden">
+							<div class="layui-input-inline">
+								<input type="text" disabled="disabled" name="id" id="id"  lay-verify="" value="" lay-reqtext="必填项，岂能为空？" autocomplete="off"
+								 class="layui-input">
+								
+							</div>
+						</div>
 
 			<div class="layui-form-item">
 				<div class="layui-inline">
@@ -74,6 +82,7 @@
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">报名名额</label>
+					
 					<div class="layui-input-inline">
 						<input type="number" name="quota" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入名额">
 					</div>
@@ -82,6 +91,7 @@
 
 			<div class="layui-form-item upload-cls">
 				<div class="layui-upload">
+					
 				  <button type="button" class="layui-btn" id="test1">上传图片</button>
 				  <div class="layui-upload-list"  style="border: solid 1px #42B983;">
 				    <img style="width: 100p;height: 100px;" class="layui-upload-img" id="demo1">
@@ -92,9 +102,19 @@
 
 
 			<div class="layui-form-item">
+				
 				<label class="layui-form-label">活动主题</label>
 				<div class="layui-input-inline" style="width: 560px;">
 					<input type="text" name="activityTheme" lay-verify="required" lay-reqtext="必填项，岂能为空？" placeholder="请输入活动主题" autocomplete="off"
+					 class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">活动图片</label>
+				<div class="layui-input-inline" style="width: 560px;">
+					
+					<input type="text" name="cover" lay-verify="" placeholder="请输入活动图片地址" autocomplete="off"
 					 class="layui-input">
 				</div>
 			</div>
@@ -103,6 +123,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">活动摘要</label>
 				<div class="layui-input-inline" style="width: 560px;">
+					
 					<input type="text" name="summary" lay-verify="required" lay-reqtext="必填项，岂能为空？" placeholder="请输入活动摘要" autocomplete="off"
 					 class="layui-input">
 				</div>
@@ -111,6 +132,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">活动地址</label>
 				<div class="layui-input-inline" style="width: 560px;">
+					
 					<input type="text" name="address" lay-verify="required" lay-reqtext="必填项，岂能为空？" placeholder="请输入活动地址" autocomplete="off"
 					 class="layui-input">
 				</div>
@@ -120,13 +142,14 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">活动开始时间</label>
 					<div class="layui-input-block">
-						<input type="text" name="activityStartTime" id="date1" autocomplete="off" class="layui-time layui-input">
+						
+						<input type="text" lay-verify="required|activityStartTime"  name="activityStartTime" id="date1" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-time layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">活动结束时间</label>
 					<div class="layui-input-block">
-						<input type="text" name="activityEndTime" id="date2" autocomplete="off" class="layui-time layui-input">
+						<input type="text" lay-verify="required"  name="activityEndTime" id="date2" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-time layui-input">
 					</div>
 				</div>
 			</div>
@@ -135,13 +158,13 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">报名开始时间</label>
 					<div class="layui-input-block">
-						<input type="text" name="signUpStartTime" id="date3" autocomplete="off" class="layui-time layui-input">
+						<input type="text" lay-verify="required"  name="signUpStartTime" id="date3" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-time layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">报名结束时间</label>
 					<div class="layui-input-block">
-						<input type="text" name="signUpEndTime" id="date4" autocomplete="off" class="layui-time layui-input">
+						<input type="text" lay-verify="required|signUpEndTime"  name="signUpEndTime"  placeholder="yyyy-MM-dd HH:mm:ss" id="date4" autocomplete="off" class="layui-time layui-input">
 					</div>
 				</div>
 			</div>
@@ -159,10 +182,9 @@
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">活动描述</label>
 				<div class="layui-input-block" style="width: 580px;">
-					<textarea name="activityDesc" placeholder="请输入活动描述" class="layui-textarea"></textarea>
+					<textarea name="activityDesc" lay-verify="required"  placeholder="请输入活动描述" class="layui-textarea"></textarea>
 				</div>
 			</div>
-
 
 
 
@@ -187,6 +209,53 @@
 					layer = layui.layer,
 					layedit = layui.layedit,
 					laydate = layui.laydate;
+				
+				var partyBranchId = window.app.getUrlParam('partyBranch');
+				
+				if (null != partyBranchId && undefined != partyBranchId && '' != partyBranchId) {
+					axios.get(window.app.serverUrl + 'partyBranch/findById/'+partyBranchId).then(function(result){
+						
+						console.log(result.data.data)
+						
+						$('#partyBranch').val(partyBranchId)
+						$('#partyBranchName').val(result.data.data.partyBranchName)
+						form.render();
+						
+					});
+				}
+				
+				
+				
+				var activityId = window.app.getUrlParam('activityId');
+				if (null != activityId && undefined != activityId && '' != activityId) {
+					axios.defaults.withCredentials = true;
+					axios.get(window.app.serverUrl + 'activity/findById/' + activityId).then(function(result) {
+						var user = result.data.data;
+						$("#pbn").hide();
+						$(".upload-cls").hide();
+						
+						form.val('example', {
+							"id": user.id,
+							"partyBranchName": user.partyBranch,
+							"partyBranch":user.partyBranch,
+							"visibleRange": user.visibleRange,
+							"quota": user.quota,
+							"activityTheme": user.activityTheme,
+							"cover": user.cover,
+							"summary": user.summary,
+							"address": user.address,
+							"activityStartTime": user.activityStartTime,
+							"activityEndTime": user.activityEndTime,
+							"signUpStartTime": user.signUpStartTime,
+							"signUpEndTime": user.signUpEndTime,
+							"activityRequire": user.activityRequire,
+							"activityDesc": user.activityDesc,
+						});
+					})
+				}
+				
+				
+					
 				//创建一个编辑器
 				var editIndex = layedit.build('LAY_demo_editor');
 				  //普通图片上传
@@ -233,6 +302,7 @@
 				laydate.render({
 					elem: '#date3',
 					type: 'datetime',
+				
 					isInitValue: true
 				});
 
@@ -253,6 +323,14 @@
 					pass: [
 						/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/, '密码需要8位以上包含大写字母、小写字母、数字、特殊符号'
 					],
+					signUpEndTime:function(){
+						
+					},
+					
+					activityStartTime:function(value){
+						$('#signUpEndTime').val();
+						
+					},
 					repassword: function(value) {
 						var password = $('#password').val();
 						console.log(password + value)
@@ -268,9 +346,10 @@
 				//监听提交
 				form.on('submit(demo1)', function(data) {
 
-					axios.post(window.app.serverUrl + 'activity/create', data.field).then(function(result) {
+					console.log(data)
+					axios.post(window.app.serverUrl + 'activity/createOrUpdate', data.field).then(function(result) {
 						if (result.data.status == 200) {
-							layer.confirm('添加成功', function(index) {
+							layer.confirm('成功', function(index) {
 								layer.close(index);
 								//向服务端发送删除指令
 								parent.layer.close(parent.layer.index)

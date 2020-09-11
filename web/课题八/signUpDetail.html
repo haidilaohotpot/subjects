@@ -85,8 +85,8 @@
 				//方法级渲染
 				table.render({
 					elem: '#LAY_table_user',
-
-					url: window.app.serverUrl + 'activity/signUpDetail?activityId='+activityId,
+					size:'lg',
+					url: window.app.serverUrl + 'activity/signUpDetail?activityId=' + activityId,
 					parseData: function(res) { //res 即为原始返回的数据
 						// console.log(res)
 						return {
@@ -119,6 +119,9 @@
 								field: 'img',
 								title: '头像',
 								width: 200,
+								templet: function(d) {
+									return '<img style="width: 40px; height:40px;" src=' + d.img + '/>'
+								}
 							},
 							{
 								field: 'name',
@@ -158,7 +161,7 @@
 							var name = $('#name').val();
 							//执行重载
 							table.reload('testReload', {
-								url: window.app.serverUrl + 'activity/signUpDetail?activityId='+activityId,
+								url: window.app.serverUrl + 'activity/signUpDetail?activityId=' + activityId,
 								page: {
 									page: 1 //重新从第 1 页开始
 								},

@@ -100,9 +100,14 @@
 			</script>
 			<script type="text/html" id="barDemo">
 				<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-				  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">取消</a>
-				</script>
-
+				<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">取消</a>
+			</script>
+			<script type="text/html" id="toolbarDemo">
+				<div class="layui-btn-container">
+					<button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+					<button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+				</div>
+			</script>
 			<div class="layui-footer">
 				<!-- 底部固定区域 -->
 				© wonder4work.com
@@ -177,6 +182,9 @@
 					},
 					cols: [
 						[{
+								checkbox: true,
+								fixed: true
+							}, {
 								field: 'partyBranch',
 								title: '所属党支部',
 								width: 200,
@@ -232,8 +240,7 @@
 					],
 					id: 'testReload',
 					page: true,
-					toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-						,
+					toolbar: '#toolbarDemo',
 					height: 500
 				});
 
@@ -301,7 +308,7 @@
 					switch (obj.event) {
 						case 'add':
 							// layer.msg('您不是管理员，无法执行此操作！');
-							pop('新增活动','./signUpPage.html')
+							pop('新增活动', './signUpPage.html?partyBranch='+window.app.userInfo.partyBranch)
 							break;
 						case 'update':
 							if (data.length === 0) {
@@ -309,16 +316,11 @@
 							} else if (data.length > 1) {
 								layer.msg('只能同时编辑一个');
 							} else {
-								layer.msg('您不是管理员，无法执行此操作！');
+								pop('编辑活动', './signUpPage.html?activityId='+checkStatus.data[0].id)
+								
 							}
 							break;
-						case 'delete':
-							if (data.length === 0) {
-								layer.msg('请选择一行');
-							} else {
-								layer.msg('请选择一行');
-							}
-							break;
+
 					};
 				});
 
@@ -333,18 +335,18 @@
 						layer.confirm('确定取消活动吗？', function(index) {
 							layer.close(index);
 							//向服务端发送指令
-							axios.post(window.app.serverUrl + 'activity/cancel/'+data.id).then(function(result){
-								
-								if(result.data.status == 200){
-									
+							axios.post(window.app.serverUrl + 'activity/cancel/' + data.id).then(function(result) {
+
+								if (result.data.status == 200) {
+
 									layer.msg('取消成功');
 									table.reload('testReload', {
-										
+
 									}, 'data');
-								}else{
+								} else {
 									layer.msg(result.data.msg);
 								}
-								
+
 							})
 						});
 					}

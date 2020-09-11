@@ -29,5 +29,13 @@ public interface UserService extends IService<User> {
      * @param userBO 用户信息
      * @return UserVO
      */
-    UserVO registe(UserBO userBO);
+    UserVO registe(UserBO userBO) throws Exception;
+
+    /**
+     * 通过手机号查找用户信息
+     * @param phone 手机号
+     * @return User
+     */
+    User findByPhone(String phone);
+
 }

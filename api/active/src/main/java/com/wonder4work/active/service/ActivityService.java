@@ -20,8 +20,9 @@ public interface ActivityService extends IService<Activity> {
 
     /**
      * 条件分页查询活动信息
+     *
      * @param queryMap 查询参数 queryMap:{partyBranch:所属党支部,activityTheme:活动主题,activityStatus:活动状态}
-     * @param page 页码
+     * @param page     页码
      * @param pageSize 每页显示多少条
      * @return PagedGridResult
      */
@@ -30,8 +31,9 @@ public interface ActivityService extends IService<Activity> {
 
     /**
      * 条件分页查询活动报名人员信息
+     *
      * @param queryMap 查询参数 queryMap:{partyBranch:所属党支部,name:姓名}
-     * @param page 页码
+     * @param page     页码
      * @param pageSize 每页显示多少条
      * @return PagedGridResult
      */
@@ -39,14 +41,23 @@ public interface ActivityService extends IService<Activity> {
 
     /**
      * 添加新活动
+     *
      * @param activity
      */
     void create(Activity activity);
 
     /**
      * 将活动状态别为取消
+     *
      * @param activityId 活动ID
      */
     void cancel(Integer activityId);
+
+    /**
+     * 更新活动信息
+     *
+     * @param activity
+     */
+    void update(Activity activity);
 
 }

@@ -13,108 +13,206 @@
 		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
 		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
 	</head>
-	
+
 	<body>
-		<div class="content-padded">
+		<div class="content" id="activityIndex" >
 
 			<div class="searchbar row">
 				<div class="search-input col-80">
 					<label class="icon icon-search" for="search"></label>
-					<input type="search" id='search' placeholder='输入关键字...' />
+					<input type="search" id='search' v-model="searchWord" placeholder='输入关键字...' />
 				</div>
-				<a class="button button-fill button-primary col-20">搜索</a>
+				<a class="button button-fill button-primary col-20" @click="searchActivity()">搜索</a>
 			</div>
-<div class="buttons-tab">
-		    <a href="#tab1" class="tab-link active button">报名中</a>
-		    <a href="#tab2" class="tab-link button">全部活动</a>
-		    <a href="#tab3" class="tab-link button">我的活动</a>
-		  </div>
-		  <div class="content-block">
-		    <div class="tabs">
-		      <div id="tab1" class="tab active">
-		           <div class="card">
-		             <div class="card-header">新的公布:</div>
-		             <div class="card-content">
-		               <div class="list-block media-list">
-		                 <ul>
-		                   <li class="item-content">
-		                     <div class="item-media">
-		                       <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
-		                     </div>
-		                     <div class="item-inner">
-		                       <div class="item-title-row">
-		                         <div class="item-title">标题</div>
-		                       </div>
-		                       <div class="item-subtitle">子标题</div>
-		                     </div>
-		                   </li>
-		                 </ul>
-		               </div>
-		             </div>
-		             <div class="card-footer">
-		               <span>2015/01/15</span>
-		               <span>5 评论</span>
-		             </div>
-		           </div>
-		      </div>
-		      <div id="tab2" class="tab">
-		       <div class="card">
-		         <div class="card-header">新的公布:</div>
-		         <div class="card-content">
-		           <div class="list-block media-list">
-		             <ul>
-		               <li class="item-content">
-		                 <div class="item-media">
-		                   <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
-		                 </div>
-		                 <div class="item-inner">
-		                   <div class="item-title-row">
-		                     <div class="item-title">标题</div>
-		                   </div>
-		                   <div class="item-subtitle">子标题</div>
-		                 </div>
-		               </li>
-		             </ul>
-		           </div>
-		         </div>
-		         <div class="card-footer">
-		           <span>2015/01/15</span>
-		           <span>5 评论</span>
-		         </div>
-		       </div>
-		      </div>
-		      <div id="tab3" class="tab">
-		        <div class="card">
-		          <div class="card-header">报名中</div>
-		          <div class="card-content">
-		            <div class="list-block media-list">
-		              <ul>
-		                <li class="item-content">
-		                  <div class="item-media">
-		                    <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
-		                  </div>
-		                  <div class="item-inner">
-		                    <div class="item-title-row">
-		                      <div class="item-title">2020秋游活动</div>
-		                    </div>
-		                    <div class="item-subtitle">每年必备的秋游活动</div>
-		                  </div>
-		                </li>
-		              </ul>
-		            </div>
-		          </div>
-		          <div class="card-footer">
-		            <span>报名时间：2020-09-1515-2020-9-20</span>
-		            <span>5/100</span>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
+			<div class="buttons-tab">
+				<a href="#tab1" class="tab-link active button">报名中</a>
+				<a href="#tab2" class="tab-link button">全部活动</a>
+				<a href="#tab3" class="tab-link button">我的活动</a>
+			</div>
+			<div class="content-block">
+				<div class="tabs">
+					<div id="tab1" class="tab active infinite-scroll">
+						<div class="card" @click="toActivityDetialPage(activity.id)" v-for=" activity in ingActivityList" v-key="activity.id">
+							<!-- -1 已取消 0 报名已结束 1 报名中 2 进行中 3 活动已结束 4 未开始 -->
+							<div class="card-header" style="color: red;">{{activity.activityStatus != -1 ? activityStatus[activity.activityStatus] : '已取消'}}</div>
+						
+							
+							<div class="card-content">
+								<div class="list-block media-list">
+									<ul>
+										<li class="item-content">
+											<div class="item-media">
+												<img :src="activity.cover"
+												 width="44">
+											</div>
+											<div class="item-inner">
+												<div class="item-title-row">
+													<div class="item-title">{{activity.activityTheme}}</div>
+												</div>
+												<div class="item-subtitle">{{activity.summary}}</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-footer">
+								<span>{{activity.partyBranch}}</span>
+								<span>{{activity.signUpNum}}/{{activity.quota}}</span>
+							</div>
+							<div class="card-footer">
+								<span>{{activity.signUpStartTime}} ~ {{activity.signUpEndTime}}</span>
+							</div>
+						</div>
+						<!-- <div class="infinite-scroll-preloader">
+						  <div class="preloader">
+						  </div>
+						</div> -->
+					</div>
+					<div id="tab2" class="tab infinite-scroll" >
+						<div class="card"  @click="toActivityDetialPage(activity.id)" v-for=" activity in allActivityList" v-key="activity.id">
+							<!-- -1 已取消 0 报名已结束 1 报名中 2 进行中 3 活动已结束 4 未开始 -->
+							<div class="card-header">{{activity.activityStatus != -1 ? activityStatus[activity.activityStatus] : '已取消'}}</div>
+						
+							
+							<div class="card-content">
+								<div class="list-block media-list">
+									<ul>
+										<li class="item-content">
+											<div class="item-media">
+												<img :src="activity.cover"
+												 width="44">
+											</div>
+											<div class="item-inner">
+												<div class="item-title-row">
+													<div class="item-title">{{activity.activityTheme}}</div>
+												</div>
+												<div class="item-subtitle">{{activity.summary}}</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-footer">
+								<span>{{activity.partyBranch}}</span>
+								<span>{{activity.signUpNum}}/{{activity.quota}}</span>
+							</div>
+							<div class="card-footer">
+								<span>{{activity.signUpStartTime}} ~ {{activity.signUpEndTime}}</span>
+							</div>
+							
+						</div>
+						 <!-- 加载提示符 -->
+						          <div class="infinite-scroll-preloader">
+						            <div class="preloader">
+						            </div>
+						          </div>
+					</div>
+					<div id="tab3" class="tab infinite-scroll">
+						<div class="card" @click="toActivityDetialPage(activity.id)" v-for=" activity in myActivityList" v-key="activity.id">
+							<!-- -1 已取消 0 报名已结束 1 报名中 2 进行中 3 活动已结束 4 未开始 -->
+							<div class="card-header" style="color: red;">{{activity.activityStatus != -1 ? activityStatus[activity.activityStatus] : '已取消'}}</div>
+						
+							
+							<div class="card-content">
+								<div class="list-block media-list">
+									<ul>
+										<li class="item-content">
+											<div class="item-media">
+												<img :src="activity.cover"
+												 width="44">
+											</div>
+											<div class="item-inner">
+												<div class="item-title-row">
+													<div class="item-title">{{activity.activityTheme}}</div>
+												</div>
+												<div class="item-subtitle">{{activity.summary}}</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-footer">
+								<span>{{activity.partyBranch}}</span>
+								<span>{{activity.signUpNum}}/{{activity.quota}}</span>
+							</div>
+							<div class="card-footer">
+								<span>{{activity.signUpStartTime}} ~ {{activity.signUpEndTime}}</span>
+							</div>
+						</div>
+						<div class="infinite-scroll-preloader">
+						  <div class="preloader">
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		
+
 	</body>
+	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+	<script type='text/javascript' src='http://www.jq22.com/jquery/vue.min.js' charset='utf-8'></script>
+	<script src="../app.js"></script>
 	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script>
+		new Vue({
+			el: "#activityIndex",
+			data: {
+				// 所有的活动信息
+				allActivityList:[],
+				activityStatus:[
+					'报名已结束',
+					'报名中',
+					'进行中',
+					'活动已结束',
+					'未开始',
+					'已取消'
+				],
+				ingActivityList:[],
+				myActivityList:[],
+				searchWord:""
+			},
+			created() {
+				var that = this;
+				// 全部类型的活动
+				axios.get(window.app.serverUrl +'activity/query').then(function(result){
+					console.log(result);
+					that.allActivityList = result.data.data.rows;
+				});
+				//报名中的活动
+				axios.get(window.app.serverUrl +'activity/query?activityStatus=1').then(function(result){
+					console.log(result);
+					that.ingActivityList = result.data.data.rows;
+				});
+				// 我的活动
+				axios.get(window.app.serverUrl +'activity/query?userId=1').then(function(result){
+					console.log(result);
+					that.myActivityList = result.data.data.rows;
+				});
+			},
+			methods:{
+				
+				// 搜索
+				searchActivity(){
+					var that = this;
+					// 全部类型的活动
+					axios.get(window.app.serverUrl +'activity/query?activityTheme='+that.searchWord).then(function(result){
+						console.log(result);
+						that.allActivityList = result.data.data.rows;
+					});
+				},
+				
+				toActivityDetialPage(activityId){
+					
+					console.log(activityId);
+					window.location.href = 'detail.html?activityId='+activityId;
+				},
+				
+				
+			}
+
+		})
+	</script>
+
 </html>

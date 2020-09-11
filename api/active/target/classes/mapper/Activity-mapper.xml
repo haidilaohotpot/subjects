@@ -94,9 +94,15 @@
             <if test="map.partyBranch!=null">
                 and tpb.party_branch_name like CONCAT('%',#{map.partyBranch},'%')
             </if>
+            <if test="map.userId!=null">
+                and ta.id in(select activity_id from t_activity_user where user_id = #{map.userId})
+            </if>
         </where>
         ORDER BY
           ta.update_time DESC
     </select>
+
+
+
 
 </mapper>

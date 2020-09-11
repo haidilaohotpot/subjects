@@ -15,30 +15,30 @@
 <script src="app.js"></script>
 <script>
 	
-	// $(function() {
-	// 	axios.defaults.withCredentials = true;
-	// 	var userCookie = app.getCookie("user");
-	// 	console.log(userCookie)
-	// 	if (userCookie != null && userCookie != undefined && userCookie != '') {
-	// 		var userInfoStr = decodeURIComponent(userCookie);
-	// 		if (userInfoStr != null && userInfoStr != undefined && userInfoStr != '') {
-	// 			var userInfo = JSON.parse(userInfoStr);
-	// 			// 判断是否是一个对象
-	// 			if (typeof(userInfo) == "object") {
-	// 				app.userIsLogin = true;
-	// 				console.log(userInfo);
-	// 				app.userInfo = userInfo;
-	// 				$('#name').html(app.userInfo.name)
-	// 			} else {
-	// 				app.userIsLogin = false;
-	// 				app.userInfo = {};
-	// 				window.location.href = "../index.html"
-	// 			}
-	// 		}
-	// 	} else {
-	// 		app.userIsLogin = false;
-	// 		app.userInfo = {};
-	// 		window.location.href = "../index.html"
-	// 	}
-	// })
+	$(function() {
+		axios.defaults.withCredentials = true;
+		var userCookie = app.getCookie("user");
+		console.log(userCookie)
+		if (userCookie != null && userCookie != undefined && userCookie != '') {
+			var userInfoStr = decodeURIComponent(userCookie);
+			if (userInfoStr != null && userInfoStr != undefined && userInfoStr != '') {
+				var userInfo = JSON.parse(userInfoStr);
+				// 判断是否是一个对象
+				if (typeof(userInfo) == "object") {
+					app.userIsLogin = true;
+					console.log(userInfo);
+					app.userInfo = userInfo;
+					$('#name').html(app.userInfo.name)
+				} else {
+					app.userIsLogin = false;
+					app.userInfo = {};
+					window.location.href = "./index.html"
+				}
+			}
+		} else {
+			app.userIsLogin = false;
+			app.userInfo = {};
+			window.location.href = "./index.html"
+		}
+	})
 </script>
