@@ -98,6 +98,39 @@ public class UserController {
         return JSONResult.ok(loginUser);
     }
 
+
+    @ApiOperation(value = "客户端登录", notes = "客户端登录", httpMethod = "POST",response = UserVO.class)
+    @PostMapping("/client/login")
+    public JSONResult clientLogin(@ApiParam(name = "userBO",value = "登录用户信息",required = true) @RequestBody UserBO userBO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String password = userBO.getPassword();
+        String username = userBO.getUsername();
+        String code = userBO.getVercode();
+
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            return JSONResult.errorMsg("用户名或密码不能为空");
+        }
+
+        if (!MobileEmailUtils.checkMobileIsOk(username)){
+            return JSONResult.errorMsg("用户名密码不正确");
+        }
+
+        // 根据用户名(登录名或手机号)和密码查询用户
+        UserVO loginUser = userService.login(username, password);
+
+        if (loginUser.getId() == null) {
+            return JSONResult.errorMsg("用户名或密码错误");
+
+        }
+
+        // 设置cookie
+        CookieUtils.setCookie(request, response, "user",
+                JsonUtils.objectToJson(loginUser), true);
+
+        return JSONResult.ok(loginUser);
+    }
+
+
     @ApiOperation(value = "退出登录",notes = "用户退出登录的接口",httpMethod = "POST")
     @PostMapping("/logout")
     public JSONResult logout(HttpServletRequest request, HttpServletResponse response){

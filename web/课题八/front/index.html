@@ -15,15 +15,12 @@
 	</head>
 
 	<body>
+		<nav class="bar bar-nav bar-standard">
+		  <h1 class="title">活动列表</h1>
+		</nav>
 		<div class="content" id="activityIndex" >
 
-			<div class="searchbar row">
-				<div class="search-input col-80">
-					<label class="icon icon-search" for="search"></label>
-					<input type="search" id='search' v-model="searchWord" placeholder='输入关键字...' />
-				</div>
-				<a class="button button-fill button-primary col-20" @click="searchActivity()">搜索</a>
-			</div>
+			
 			<div class="buttons-tab">
 				<a href="#tab1" class="tab-link active button">报名中</a>
 				<a href="#tab2" class="tab-link button">全部活动</a>
@@ -31,15 +28,15 @@
 			</div>
 			<div class="content-block">
 				<div class="tabs">
-					<div id="tab1" class="tab active infinite-scroll">
-						<div class="card" @click="toActivityDetialPage(activity.id)" v-for=" activity in ingActivityList" v-key="activity.id">
+					<div id="tab1" class="tab active  ">
+						<div class="card list-container" @click="toActivityDetialPage(activity.id)" v-for=" activity in ingActivityList" v-key="activity.id">
 							<!-- -1 已取消 0 报名已结束 1 报名中 2 进行中 3 活动已结束 4 未开始 -->
 							<div class="card-header" style="color: red;">{{activity.activityStatus != -1 ? activityStatus[activity.activityStatus] : '已取消'}}</div>
 						
 							
 							<div class="card-content">
 								<div class="list-block media-list">
-									<ul>
+									<ul >
 										<li class="item-content">
 											<div class="item-media">
 												<img :src="activity.cover"
@@ -57,7 +54,8 @@
 							</div>
 							<div class="card-footer">
 								<span>{{activity.partyBranch}}</span>
-								<span>{{activity.signUpNum}}/{{activity.quota}}</span>
+								<span style="color: #42B983;">已赞{{activity.likeNum}}</span>
+								<span style="color: #0081FF;">名额：{{activity.signUpNum}}/{{activity.quota}}</span>
 							</div>
 							<div class="card-footer">
 								<span>{{activity.signUpStartTime}} ~ {{activity.signUpEndTime}}</span>
@@ -67,9 +65,17 @@
 						  <div class="preloader">
 						  </div>
 						</div> -->
+						<p><a v-if="ingPage<ingTotal" @click="getIngActivityList(ingPage+1)"  href="#" class="button button-fill button-success">加载更多 </a></p>
 					</div>
-					<div id="tab2" class="tab infinite-scroll" >
-						<div class="card"  @click="toActivityDetialPage(activity.id)" v-for=" activity in allActivityList" v-key="activity.id">
+					<div id="tab2" class="tab " >
+						<div class="searchbar row">
+							<div class="search-input col-80">
+								<label class="icon icon-search" for="search"></label>
+								<input type="search" id='search' v-model="searchWord" placeholder='输入关键字...' />
+							</div>
+							<a class="button button-fill button-primary col-20" @click="searchActivity()">搜索</a>
+						</div>
+						<div class="card list-container"  @click="toActivityDetialPage(activity.id)" v-for=" activity in allActivityList" v-key="activity.id">
 							<!-- -1 已取消 0 报名已结束 1 报名中 2 进行中 3 活动已结束 4 未开始 -->
 							<div class="card-header">{{activity.activityStatus != -1 ? activityStatus[activity.activityStatus] : '已取消'}}</div>
 						
@@ -94,7 +100,9 @@
 							</div>
 							<div class="card-footer">
 								<span>{{activity.partyBranch}}</span>
-								<span>{{activity.signUpNum}}/{{activity.quota}}</span>
+								<span style="color: #42B983;">已赞{{activity.likeNum}}</span>
+									<span style="color: #0081FF;">名额：{{activity.signUpNum}}/{{activity.quota}}</span>
+								
 							</div>
 							<div class="card-footer">
 								<span>{{activity.signUpStartTime}} ~ {{activity.signUpEndTime}}</span>
@@ -102,14 +110,15 @@
 							
 						</div>
 						 <!-- 加载提示符 -->
-						          <div class="infinite-scroll-preloader">
+						         <!-- <div class="infinite-scroll-preloader">
 						            <div class="preloader">
 						            </div>
-						          </div>
+						          </div> -->
+						<p><a v-if="allPage<allTotal" @click="getAllActivityList(allPage+1)"  href="#" class="button button-fill button-success">加载更多 </a></p>
 					</div>
-					<div id="tab3" class="tab infinite-scroll">
-						<div class="card" @click="toActivityDetialPage(activity.id)" v-for=" activity in myActivityList" v-key="activity.id">
-							<!-- -1 已取消 0 报名已结束 1 报名中 2 进行中 3 活动已结束 4 未开始 -->
+					<div id="tab3" class="tab ">
+						<div class="card list-container" @click="toActivityDetialPage(activity.id)" v-for=" activity in myActivityList" v-key="activity.id">
+																			<!-- -1 已取消 0 报名已结束 1 报名中 2 进行中 3 活动已结束 4 未开始 -->
 							<div class="card-header" style="color: red;">{{activity.activityStatus != -1 ? activityStatus[activity.activityStatus] : '已取消'}}</div>
 						
 							
@@ -133,16 +142,15 @@
 							</div>
 							<div class="card-footer">
 								<span>{{activity.partyBranch}}</span>
-								<span>{{activity.signUpNum}}/{{activity.quota}}</span>
+								<span style="color: #42B983;">已赞{{activity.likeNum}}</span>
+									<span style="color: #0081FF;">名额：{{activity.signUpNum}}/{{activity.quota}}</span>
+								
 							</div>
 							<div class="card-footer">
 								<span>{{activity.signUpStartTime}} ~ {{activity.signUpEndTime}}</span>
 							</div>
 						</div>
-						<div class="infinite-scroll-preloader">
-						  <div class="preloader">
-						  </div>
-						</div>
+						<p><a v-if="myPage<myTotal" @click="getMyActivityList(myPage+1)" href="#" class="button button-fill button-success">加载更多 </a></p>
 					</div>
 				</div>
 			</div>
@@ -156,6 +164,9 @@
 	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 	<script>
+		
+		
+		
 		new Vue({
 			el: "#activityIndex",
 			data: {
@@ -171,25 +182,49 @@
 				],
 				ingActivityList:[],
 				myActivityList:[],
-				searchWord:""
+				searchWord:"",
+				ingPage:1,
+				ingTotal:1,
+				myPage:1,
+				myTotal:1,
+				allPage:1,
+				allTotal:1,
 			},
 			created() {
+				
+				axios.defaults.withCredentials = true;
+				var userCookie = app.getCookie("user");
+				console.log(userCookie)
+				if (userCookie != null && userCookie != undefined && userCookie != '') {
+					var userInfoStr = decodeURIComponent(userCookie);
+					if (userInfoStr != null && userInfoStr != undefined && userInfoStr != '') {
+						var userInfo = JSON.parse(userInfoStr);
+						// 判断是否是一个对象
+						if (typeof(userInfo) == "object") {
+							app.userIsLogin = true;
+							console.log(userInfo);
+							app.userInfo = userInfo;
+						} else {
+							app.userIsLogin = false;
+							app.userInfo = {};
+							window.location.href = "./index.html"
+						}
+					}
+				} else {
+					app.userIsLogin = false;
+					app.userInfo = {};
+					window.location.href = "./index.html"
+				}
+				
+				
 				var that = this;
 				// 全部类型的活动
-				axios.get(window.app.serverUrl +'activity/query').then(function(result){
-					console.log(result);
-					that.allActivityList = result.data.data.rows;
-				});
+				
+				that.getAllActivityList(that.allPage);
 				//报名中的活动
-				axios.get(window.app.serverUrl +'activity/query?activityStatus=1').then(function(result){
-					console.log(result);
-					that.ingActivityList = result.data.data.rows;
-				});
+				that.getIngActivityList(that.ingPage)
 				// 我的活动
-				axios.get(window.app.serverUrl +'activity/query?userId=1').then(function(result){
-					console.log(result);
-					that.myActivityList = result.data.data.rows;
-				});
+				that.getMyActivityList(that.myPage)
 			},
 			methods:{
 				
@@ -200,14 +235,47 @@
 					axios.get(window.app.serverUrl +'activity/query?activityTheme='+that.searchWord).then(function(result){
 						console.log(result);
 						that.allActivityList = result.data.data.rows;
+						window.localtion.href = 'tab2'
 					});
 				},
 				
 				toActivityDetialPage(activityId){
 					
 					console.log(activityId);
-					window.location.href = 'detail.html?activityId='+activityId;
+					window.location.href = 'detail.html?activityId='+activityId+'&userId='+window.app.userInfo.id;
 				},
+				
+				// 获取全部
+				getAllActivityList(page){
+					var that = this;
+					axios.get(window.app.serverUrl +'activity/query?page='+page).then(function(result){
+						console.log(result);
+						that.allActivityList = result.data.data.rows;
+						that.allPage = result.data.data.page;
+						that.allTotal = result.data.data.total;
+					});
+				},
+				// 获取报名中
+				getIngActivityList(page){
+					var that = this;
+					axios.get(window.app.serverUrl +'activity/query?activityStatus=1&page='+page).then(function(result){
+						console.log(result);
+						that.ingActivityList = result.data.data.rows;
+						that.ingPage = result.data.data.page;
+						that.ingTotal = result.data.data.total;
+					});
+				},
+				// 获取我的
+				getMyActivityList(page){
+					var that = this;
+					axios.get(window.app.serverUrl +'activity/query?userId='+window.app.userInfo.id+'&page='+page).then(function(result){
+						console.log(result);
+						that.myActivityList = result.data.data.rows;
+						that.myPage = result.data.data.page;
+						that.myTotal = result.data.data.total;
+					});
+				},
+				
 				
 				
 			}

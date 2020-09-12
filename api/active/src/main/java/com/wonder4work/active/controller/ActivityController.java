@@ -6,6 +6,7 @@ import com.wonder4work.active.domain.Activity;
 import com.wonder4work.active.domain.PartyBranch;
 import com.wonder4work.active.service.ActivityService;
 import com.wonder4work.active.utils.JSONResult;
+import com.wonder4work.active.vo.CommentVO;
 import com.wonder4work.active.vo.UserVO;
 import io.swagger.annotations.*;
 import io.swagger.models.auth.In;
@@ -113,6 +114,109 @@ public class ActivityController {
         Activity activity = activityService.getById(id);
 
         return JSONResult.ok(activity);
+    }
+
+
+    @ApiOperation(value = "活动报名/取消", notes = "活动报名/取消", httpMethod = "POST",response = Activity.class)
+    @PostMapping("/joinOrCancel")
+    public JSONResult joinOrCancel(@RequestParam(name = "tag", required = true)Integer tag,@RequestParam(name = "userId", required = true)Integer userId,@RequestParam(name = "activityId",required = true)Integer activityId) throws Exception {
+
+        // tag ==0 取消报名  tag==1报名
+
+        if (tag ==null || activityId == null||userId==null) {
+            return JSONResult.errorMsg("活动ID和用户ID不能为空");
+        }
+
+        if (tag == 1) {
+            boolean isJoin = activityService.checkUserIsJoin(userId, activityId);
+            if (isJoin) {
+                return JSONResult.ok();
+            }
+            activityService.join(userId,activityId);
+        }
+
+        if (tag == 0) {
+            activityService.cancel(userId,activityId);
+        }
+
+        return JSONResult.ok();
+    }
+
+
+    @ApiOperation(value = "xiezengcheng:查询用户是否报名此活动",notes = "查询用户是否报名此活动",response = boolean.class)
+    @GetMapping("/checkUserIsJoin")
+    public JSONResult checkUserIsJoin(@RequestParam(name = "userId", required = true)Integer userId,@RequestParam(name = "activityId",required = true)Integer activityId){
+        if (activityId == null||userId==null) {
+            return JSONResult.errorMsg("活动ID和用户ID不能为空");
+        }
+        boolean isJoin = activityService.checkUserIsJoin(userId, activityId);
+
+        return JSONResult.ok(isJoin);
+    }
+
+    @ApiOperation(value = "点赞",notes = "点赞",response = boolean.class)
+    @GetMapping("/like")
+    public JSONResult like(@RequestParam(name = "activityId",required = true)Integer activityId){
+        if (activityId == null) {
+            return JSONResult.errorMsg("活动ID不能为空");
+        }
+        activityService.like(activityId);
+
+        return JSONResult.ok();
+    }
+
+
+    @ApiImplicitParams({
+
+            @ApiImplicitParam(name = "userId",value = "用户ID",dataType = "int",paramType = "query"),
+            @ApiImplicitParam(name = "activityId",value = "活动ID",dataType = "int",paramType = "query"),
+            @ApiImplicitParam(name = "name",value = "姓名",dataType = "string",paramType = "query"),
+            @ApiImplicitParam(name = "page",value = "页码",dataType = "int",paramType = "query"),
+            @ApiImplicitParam(name = "pageSize",value = "每页显示多少条",dataType = "int",paramType = "query")
+    })
+
+    @GetMapping("/queryComments")
+    @ApiOperation(value = "xiezengcheng:分页查询活动评论信息",notes = "分页查询活动评论信息",response = CommentVO.class)
+    public JSONResult queryComments(@RequestParam(required = false) Map<String, Object> queryMap,
+                                   @RequestParam(required = false,defaultValue = "1") Integer page,
+                                   @RequestParam(required = false,defaultValue = "20") Integer pageSize) {
+
+        String activityId = (String) queryMap.get("activityId");
+
+        if (StringUtils.isBlank(activityId)){
+            return JSONResult.errorMsg("活动ID不能为空");
+        }
+
+        return JSONResult.ok(activityService.queryComment(queryMap, page, pageSize));
+    }
+
+    @ApiOperation(value = "删除评论", notes = "删除评论", httpMethod = "POST",response = CommentVO.class)
+    @PostMapping("/deleteComment")
+    public JSONResult deleteComment(@RequestParam(name = "id",required = true)Integer id,@RequestParam(name = "activityId",required = true)Integer activityId) throws Exception {
+
+        if (activityId == null || id == null) {
+            return JSONResult.errorMsg("ID不能为空");
+        }
+
+        activityService.deleteComment(id,activityId);
+
+        return JSONResult.ok();
+    }
+
+    @ApiOperation(value = "评论", notes = "评论", httpMethod = "POST",response = CommentVO.class)
+    @PostMapping("/comment")
+    public JSONResult comment(@RequestBody CommentVO commentVO) throws Exception {
+
+        if (commentVO.getActivityId() == null || commentVO.getUserId() == null) {
+            return JSONResult.errorMsg("ID不能为空");
+        }
+
+        if (StringUtils.isBlank(commentVO.getMsg())) {
+            return JSONResult.errorMsg("评论不能为空");
+        }
+
+
+        return JSONResult.ok(activityService.comment(commentVO));
     }
 
 }

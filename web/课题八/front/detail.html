@@ -16,14 +16,13 @@
 	<body>
 		<div class="content" id="activityIndex">
 			<header class="bar bar-nav">
-			    <a href="index.html" class="icon icon-home pull-left "></a>
-			    <h1 class="title">活动详情</h1>
-			  </header>
-			  
+				<a href="index.html" class="icon icon-home pull-left "></a>
+				<h1 class="title">活动详情</h1>
+			</header>
+
 			<div class="card demo-card-header-pic">
 				<div valign="bottom" class="card-header color-white no-border no-padding">
-					<img class='card-cover' :src="activity.cover"
-					 alt="">
+					<img class='card-cover' :src="activity.cover" alt="">
 				</div>
 				<div class="card-content">
 					<div class="card-content-inner">
@@ -37,10 +36,46 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<a href="#" class="link">赞</a>
-					<a href="#" class="link">我要报名</a>
+					<a href="#" @click="like()" class="link">赞</a>
+					<!-- <a href="#" class="link">我要报名</a> -->
+					<div v-if="(activity.activityStatus==1 && activity.signUpNum<activity.quota) || (activity.activityStatus==1 && isJoin)"
+					 @click="joinOrCancel()" v-html="activityTitle"></div>
+
+				</div>
+				<hr />
+				<div class="list-block">
+					<ul>
+						<!-- Text inputs -->
+						<li>
+							<div class="item-content">
+								<div class="item-input">
+									<input v-model="commentMsg" type="text" placeholder="发表一下心情？">
+								</div>
+								<a href="#" @click="comment()" class="link"><span class="icon icon-edit"></span></a>
+							</div>
+						</li>
+
+					</ul>
 				</div>
 			</div>
+
+			<div>
+				<div class="card demo-card-header-pic" v-for="comment in commentList" v-key="comment.id">
+
+					<div class="card-content">
+						<div class="card-content-inner">
+							<p class="color-gray">{{comment.name}} 发表于 {{comment.createTime}}</p>
+							<p>{{comment.msg}}</p>
+						</div>
+					</div>
+
+
+
+				</div>
+
+			</div>
+			<p><a v-if="page<total" @click="getComments(page+1)" href="#" class="button button-fill button-success">加载更多
+				</a></p>
 
 		</div>
 
@@ -51,29 +86,141 @@
 	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-	<script >
-	
+	<script>
 		new Vue({
 			el: "#activityIndex",
 			data: {
-				activity:{},
-				activityId:0
+				activity: {},
+				activityId: 0,
+				isJoin: false,
+				tag: 1,
+				userId: 1,
+				commentMsg: "",
+				commentList: [],
+				page: 1,
+				total: 1
 			},
 			created() {
+
+
+
 				var that = this;
 				var activityId = window.app.getUrlParam('activityId');
+				var userId = window.app.getUrlParam('userId');
 				console.log(activityId)
 				that.activityId = activityId;
-				axios.get(window.app.serverUrl +'activity/findById/'+that.activityId).then(function(result){
+				that.userId = userId;
+				// 获取活动信息
+				axios.get(window.app.serverUrl + 'activity/findById/' + that.activityId).then(function(result) {
 					that.activity = result.data.data;
 					console.log(that.activity);
 				});
+
+				// 查询用户是否报名此活动
+				axios.get(window.app.serverUrl + 'activity/checkUserIsJoin', {
+					params: {
+						userId: that.userId,
+						activityId: that.activityId
+					}
+				}).then(function(result) {
+					that.isJoin = result.data.data;
+					console.log(that.isJoin);
+				});
+
+
+				that.getComments(1)
+
 			},
-			methods:{
-				
-				
+			methods: {
+				// 报名或取消报名
+				joinOrCancel() {
+					var that = this;
+
+					if (that.isJoin) {
+						that.tag = 0;
+					}
+
+					axios.post(window.app.serverUrl + 'activity/joinOrCancel?tag=' + that.tag + '&userId=' + that.userId +
+						'&activityId=' + that.activityId).then(function(result) {
+						// that.activity = result.data.data;
+						console.log(result.data.status);
+						if (result.data.status == 200) {
+							that.isJoin = !that.isJoin;
+							$.toast("操作成功");
+						}
+
+					});
+
+				},
+				// 点赞
+				like() {
+					var that = this;
+					axios.get(window.app.serverUrl + 'activity/like', {
+						params: {
+							activityId: that.activityId
+						}
+					}).then(function(result) {
+						$.toast("点赞");
+					});
+
+				},
+
+				// 评论
+				comment() {
+					
+					var that = this;
+					
+					var commentVO = {}
+					commentVO.userId = that.userId;
+					commentVO.activityId = that.activityId;
+					commentVO.msg = that.commentMsg;
+					commentVO.name = window.app.userInfo.name;
+					
+					if(that.commentMsg == null || undefined == that.commentMsg ||that.commentMsg.length > 120 || that.commentMsg == ''){
+						$.toast("评论不合法");
+						return false;
+					}
+					
+					axios.post(window.app.serverUrl + 'activity/comment',commentVO).then(function(result) {
+						// that.activity = result.data.data;
+						console.log(result.data.status);
+						if (result.data.status == 200) {
+							$.toast("评论成功");
+							that.commentList.unshift(result.data.data)
+							
+							that.commentMsg = ""
+						}else{
+							$.toast("评论失败");
+						}
+						
+						
+
+					});
+				},
+
+				getComments(page) {
+
+					var that = this;
+					axios.get(window.app.serverUrl + 'activity/queryComments?page=' + page + '&activityId=' + that.activityId).then(
+						function(result) {
+							console.log(result.data)
+							that.commentList = result.data.data.rows;
+							that.page = result.data.data.page;
+							that.total = result.data.data.total;
+						});
+
+				}
+
+			},
+			computed: {
+
+				activityTitle: function() {
+					var that = this;
+					return that.isJoin ? '<a href="#"  class="link">取消报名</a>' : '<a   href="#" class="link">我要报名</a>';
+				}
+
 			}
-		
+
 		})
 	</script>
 </html>

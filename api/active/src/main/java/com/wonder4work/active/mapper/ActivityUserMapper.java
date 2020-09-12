@@ -30,5 +30,22 @@ public interface ActivityUserMapper extends BaseMapper<ActivityUserVO> {
      */
     List<ActivityUserVO> query(@Param("map") Map<String, Object> map);
 
+    /**
+     * 参加互动
+     * @param map 查询参数
+     */
+    void join(@Param("map") Map<String, Object> map);
 
+    /**
+     * 取消活动
+     * @param map 查询参数
+     */
+    void cancel(@Param("map") Map<String, Object> map);
+
+    /**
+     * 查询用户是否报名此活动
+     * @param map 查询参数
+     * @return 报名数
+     */
+    Integer checkUserIsJoin(@Param("map") Map<String, Object> map);
 }

@@ -16,6 +16,38 @@
     </resultMap>
 
 
+    <delete id="cancel" parameterType="map">
+        DELETE
+
+        FROM
+          t_activity_user
+        WHERE
+          user_id= #{map.userId}
+        AND
+          activity_id = #{map.activityId}
+    </delete>
+
+    <insert id="join" parameterType="map">
+        INSERT INTO
+          t_activity_user(user_id,activity_id)
+        VALUES
+          (
+            #{map.userId},#{map.activityId}
+          )
+    </insert>
+
+    <select id="checkUserIsJoin" parameterType="map" resultType="int">
+        SELECT
+          count(1)
+        FROM
+          t_activity_user tau
+        WHERE
+          tau.user_id= #{map.userId}
+        AND
+          tau.activity_id = #{map.activityId}
+    </select>
+
+
     <select id="query" parameterType="map" resultMap="ActivityUserVOResultMap">
         SELECT
           tau.id id,
@@ -44,7 +76,7 @@
         <where>
 
             <if test="map.name!=null">
-                and tu.name = like CONCAT('%',#{map.name},'%')
+                and tu.name like CONCAT('%',#{map.name},'%')
             </if>
             <if test="map.partyBranch!=null">
                 and tpb.party_branch_name like CONCAT('%',#{map.partyBranch},'%')
