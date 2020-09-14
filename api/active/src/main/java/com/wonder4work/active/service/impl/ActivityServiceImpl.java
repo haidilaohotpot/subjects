@@ -235,11 +235,16 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
             byId.setCommentNum(byId.getCommentNum() + 1);
             this.baseMapper.updateById(byId);
         }
-
-
-
         return commentVO;
     }
 
 
+    @Override
+    public void changeStatus(Integer activityId, Integer activityStatus) {
+
+        Activity activity = new Activity();
+        activity.setActivityStatus(activityStatus);
+        activity.setId(activityId);
+        this.updateById(activity);
+    }
 }

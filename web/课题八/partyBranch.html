@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<title>课题八</title>
+		<title>课题八 活动管理后台</title>
 		<link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
 	</head>
 	<body class="layui-layout-body">
@@ -19,9 +19,9 @@
 						<li class="layui-nav-item layui-nav-itemed">
 							<a class="" href="javascript:;">系统管理</a>
 							<dl class="layui-nav-child">
-								<dd><a href="activity.html">活动管理</a></dd>
-								<dd class="layui-this"><a href="javascript:;">日志管理</a></dd>
-								<dd ><a href="partyBranch.html">党支部管理</a></dd>
+								<dd ><a href="activity.html">活动管理</a></dd>
+								<dd><a href="log.html">日志管理</a></dd>
+								<dd class="layui-this" ><a href="javascript:;">党支部管理</a></dd>
 								<dd><a href="http://localhost:8089/doc.html" target="_blank">接口文档</a></dd>
 							</dl>
 						</li>
@@ -50,26 +50,10 @@
 
 
 					<div class="demoTable">
-						接口
+						党支部
 						<div class="layui-inline">
-							<input class="layui-input" name="id" id="api" autocomplete="off">
+							<input class="layui-input" name="id" id="partyBranchName" autocomplete="off">
 						</div>
-						日志
-						<div class="layui-inline">
-							<input class="layui-input" name="id" id="content" autocomplete="off">
-						</div>
-						时间范围
-						 <div class="layui-inline">
-						      <div class="layui-input-inline">
-						        <input type="text" class="layui-input" id="createTimeMin" placeholder="yyyy-MM-dd">
-						      </div>
-						    </div>
-							-
-							<div class="layui-inline">
-							     <div class="layui-input-inline">
-							       <input type="text" class="layui-input" id="createTimeMax" placeholder="yyyy-MM-dd">
-							     </div>
-							   </div>
 						<button class="layui-btn" data-type="reload">搜索</button>
 					</div>
 
@@ -77,9 +61,13 @@
 
 				</div>
 			</div>
-
 			
-
+			<script type="text/html" id="toolbarDemo">
+				<div class="layui-btn-container">
+					<button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+					<button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+				</div>
+			</script>
 			<div class="layui-footer">
 				<!-- 底部固定区域 -->
 				© wonder4work.com
@@ -90,11 +78,10 @@
 		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 		<script src="app.js"></script>
 		<script>
-			
 			$(function() {
 				$(".header").load("header.html");
 			});
-			
+
 			layui.use(['laydate', 'laypage', 'layer', 'table', 'element'], function() {
 				var laydate = layui.laydate //日期
 					,
@@ -108,24 +95,13 @@
 					,
 					laydate = layui.laydate
 
-				//日期范围
-				laydate.render({
-					elem: '#createTimeMin',
-					value: '2020-09-04',
-					isInitValue: true
-				});
 				
-				laydate.render({
-					elem: '#createTimeMax',
-					value: '2020-09-04',
-					isInitValue: true
-				});
 
 				//方法级渲染
 				table.render({
 					elem: '#LAY_table_user',
 
-					url: window.app.serverUrl + 'log/query',
+					url: window.app.serverUrl + 'partyBranch/query',
 					parseData: function(res) { //res 即为原始返回的数据
 						// console.log(res)
 						return {
@@ -154,21 +130,23 @@
 						dataName: 'data' //规定数据列表的字段名称，默认：data
 					},
 					cols: [
-						[ {
-								field: 'content',
-								title: '异常',
-								sort: true,
-								width: 700,
+						[{
+								checkbox: true,
+								fixed: true
+							}, {
+								field: 'partyBranchName',
+								title: '党支部',
+								width: 200,
 							},
-							{
-									field: 'api',
-									title: '接口',
-									sort: true,
-									width: 300,
-								},
 							{
 								field: 'createTime',
 								title: '创建时间',
+								sort: true,
+								width: 200
+							},
+							{
+								field: 'updateTime',
+								title: '更新时间',
 								sort: true,
 								width: 200
 							}
@@ -176,33 +154,88 @@
 					],
 					id: 'testReload',
 					page: true,
+					toolbar: '#toolbarDemo',
 					height: 500
 				});
+
+
+				// 弹出窗口
+				function pop(title, content) {
+					var that = this;
+					//多窗口模式，层叠置顶
+					layer.open({
+						type: 2 //此处以iframe举例
+							,
+						title: title,
+						area: ['490px', '250px'],
+						shade: 0,
+						maxmin: true,
+						// offset: [ //为了演示，随机坐标
+						// 	Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+						// ],
+						content: content,
+						zIndex: layer.zIndex //重点1
+							,
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						},
+						end: function(index, layero) {
+
+							table.reload('testReload', {
+								url: window.app.serverUrl + 'partyBranch/query',
+								page: {
+									page: 1 //重新从第 1 页开始
+								}
+							}, 'data');
+
+							// return false; 
+						}
+					});
+				}
 
 				var $ = layui.$,
 					active = {
 						reload: function() {
-							var content = $('#content').val();
-							var api = $('#api').val();
-							var createTimeMin = $('#createTimeMin').val();
-							var createTimeMax = $('#createTimeMax').val();
+							// partyBranch  activityTheme  activityStatus
+							var partyBranchName = $('#partyBranchName').val();
 							//执行重载
 							table.reload('testReload', {
-								url: window.app.serverUrl + 'log/query',
+								url: window.app.serverUrl + 'partyBranch/query',
 								page: {
 									page: 1 //重新从第 1 页开始
 								},
 								where: {
-									content: content,
-									api:api,
-									createTimeMin: createTimeMin,
-									createTimeMax: createTimeMax
+									partyBranchName: partyBranchName
+								
 								}
 							}, 'data');
 						}
 					};
 
+				//监听头工具栏事件
+				table.on('toolbar(user)', function(obj) {
+					var checkStatus = table.checkStatus(obj.config.id),
+						data = checkStatus.data; //获取选中的数据
+					switch (obj.event) {
+						case 'add':
+							// layer.msg('您不是管理员，无法执行此操作！');
+							pop('新增活动', './addPartyBranchPage.html')
+							break;
+						case 'update':
+							if (data.length === 0) {
+								layer.msg('请选择一行');
+							} else if (data.length > 1) {
+								layer.msg('只能同时编辑一个');
+							} else {
+								pop('编辑活动', './addPartyBranchPage.html?partyBranchId='+checkStatus.data[0].id)
+								
+							}
+							break;
 
+					};
+				});
+
+				
 
 				$('.demoTable .layui-btn').on('click', function() {
 					var type = $(this).data('type');

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wonder4work.active.domain.Activity;
 import com.wonder4work.active.utils.PagedGridResult;
+import com.wonder4work.active.vo.ActivityVO;
 import com.wonder4work.active.vo.CommentVO;
 
 import java.util.List;
@@ -109,9 +110,17 @@ public interface ActivityService extends IService<Activity> {
     void deleteComment(Integer id,Integer activityId);
 
     /**
+     * 评论信息
      *
      * @param commentVO
      */
     CommentVO comment(CommentVO commentVO);
 
+    /**
+     * 改变活动状态
+     *
+     * @param activityId 活动ID
+     * @param activityStatus 活动状态
+     */
+    void changeStatus(Integer activityId, Integer activityStatus);
 }

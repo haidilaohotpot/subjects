@@ -6,6 +6,7 @@ import com.wonder4work.active.domain.Activity;
 import com.wonder4work.active.domain.PartyBranch;
 import com.wonder4work.active.service.ActivityService;
 import com.wonder4work.active.utils.JSONResult;
+import com.wonder4work.active.vo.ActivityVO;
 import com.wonder4work.active.vo.CommentVO;
 import com.wonder4work.active.vo.UserVO;
 import io.swagger.annotations.*;
@@ -218,6 +219,24 @@ public class ActivityController {
 
         return JSONResult.ok(activityService.comment(commentVO));
     }
+
+
+    @ApiOperation(value = "改变活动状态",notes = "改变活动状态",response = ActivityVO.class)
+    @GetMapping("/changeStatus")
+    public JSONResult changeStatus(@RequestParam(name = "activityId",required = true)Integer activityId, @RequestParam(name = "activityStatus", required = true) Integer activityStatus){
+
+        if (activityId == null || activityStatus == null) {
+
+            return JSONResult.errorMsg("活动ID和活动状态不能为空");
+        }
+
+        activityService.changeStatus(activityId, activityStatus);
+
+        return JSONResult.ok();
+    }
+
+
+
 
 }
 
