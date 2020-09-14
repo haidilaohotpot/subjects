@@ -6,6 +6,7 @@ import com.wonder4work.active.service.LogService;
 import com.wonder4work.active.utils.JSONResult;
 import com.wonder4work.active.utils.PagedGridResult;
 import io.swagger.annotations.*;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/log")
 public class LogController {
+
 
     @Autowired
     private LogService logService;

@@ -1,0 +1,31 @@
+
+server:
+#  port: 8088
+  tomcat:
+    uri-encoding: UTF-8
+  max-http-header-size: 80KB
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+
+  servlet:
+    multipart:
+      max-file-size: 512000  # 文件上传大小限制500kb
+      max-request-size: 51200
+  profiles:
+#    active: prod
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 请求大小限制为500kb
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wonder4work.shop.domain
+
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true
+
+

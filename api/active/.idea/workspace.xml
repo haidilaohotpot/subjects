@@ -3,25 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4391d397-9c43-4414-b00d-c91ecf9a074b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/active.iml" beforeDir="false" afterPath="$PROJECT_DIR$/active.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/ActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/ActivityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/LogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/LogController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/PartyBranchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/PartyBranchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/ActivityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/ActivityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/PartyBranchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/PartyBranchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/impl/ActivityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/impl/ActivityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/impl/PartyBranchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/impl/PartyBranchServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wonder4work/active/controller/ActivityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wonder4work/active/controller/ActivityController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wonder4work/active/controller/PartyBranchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wonder4work/active/controller/PartyBranchController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wonder4work/active/service/ActivityService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wonder4work/active/service/ActivityService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wonder4work/active/service/PartyBranchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wonder4work/active/service/PartyBranchService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wonder4work/active/service/impl/ActivityServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wonder4work/active/service/impl/ActivityServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wonder4work/active/service/impl/PartyBranchServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wonder4work/active/service/impl/PartyBranchServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/activity.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/activity.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/front/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/front/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/log.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/log.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/signUpDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/signUpDetail.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,7 +16,67 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="log4j.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="ActivityService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/ActivityService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2508">
+              <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LogServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/impl/LogServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="572">
+              <caret line="38" column="50" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Activity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/domain/Activity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="616">
+              <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LogController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/LogController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PartyBranchController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/PartyBranchController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="650">
+              <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -68,7 +111,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/impl/LogServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/LogService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/utils/PagedGridResult.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/LogController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/vo/ActivityVO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/vo/ActivityUserVO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/vo/UserVO.java" />
@@ -95,6 +137,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/utils/RedisOperator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/LogController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/PartyBranchController.java" />
       </list>
     </option>
@@ -121,7 +164,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="669" />
     <option name="y" value="15" />
     <option name="width" value="1494" />
@@ -135,8 +178,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -253,17 +295,6 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="wonder4work" type="462c0819:PsiDirectoryNode" />
               <item name="active" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="active" type="b2602c69:ProjectViewProjectNode" />
-              <item name="active" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="wonder4work" type="462c0819:PsiDirectoryNode" />
-              <item name="active" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -275,7 +306,8 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="wonder4work" type="462c0819:PsiDirectoryNode" />
               <item name="active" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="active" type="b2602c69:ProjectViewProjectNode" />
@@ -295,19 +327,12 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="active" type="b2602c69:ProjectViewProjectNode" />
-              <item name="active" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -439,15 +464,19 @@
       <workItem from="1599979022870" duration="14000" />
       <workItem from="1599983500645" duration="2522000" />
       <workItem from="1599989202842" duration="9000" />
-      <workItem from="1600049687938" duration="7234000" />
+      <workItem from="1600049687938" duration="10012000" />
+      <workItem from="1600073188643" duration="614000" />
+      <workItem from="1600074724273" duration="14000" />
+      <workItem from="1600081359501" duration="126000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81882000" />
+    <option name="totallyTimeSpent" value="85414000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1455" height="944" extended-state="7" />
+    <frame x="-7" y="-7" width="1455" height="944" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -461,7 +490,6 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.23247233" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32923833" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
@@ -470,11 +498,12 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.6363636" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32923833" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.25125268" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.3249821" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32923833" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -500,13 +529,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/LogService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="21" column="90" selection-start-line="21" selection-start-column="90" selection-end-line="21" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/swagger/swagger-annotations/1.5.6/swagger-annotations-1.5.6-sources.jar!/io/swagger/annotations/ApiParam.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1319">
@@ -521,24 +543,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/impl/LogServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="38" column="50" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/swagger/swagger-annotations/1.5.6/swagger-annotations-1.5.6-sources.jar!/io/swagger/annotations/ApiImplicitParam.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1892">
           <caret line="103" column="11" selection-start-line="103" selection-start-column="11" selection-end-line="103" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/LogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -602,9 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -661,9 +666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -702,20 +704,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/domain/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="31" column="23" lean-forward="true" selection-start-line="20" selection-end-line="31" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/vo/CommentVO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="550">
           <caret line="28" selection-start-line="21" selection-start-column="4" selection-end-line="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -723,9 +715,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -740,13 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="5" column="62" selection-start-line="5" selection-start-column="62" selection-end-line="5" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/ActivityService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2508">
-          <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -820,13 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="132" column="45" selection-start-line="132" selection-start-column="45" selection-end-line="132" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -852,16 +827,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-418">
           <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/PartyBranchController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="72" column="5" lean-forward="true" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -869,6 +834,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
           <caret line="120" column="40" lean-forward="true" selection-start-line="120" selection-start-column="40" selection-end-line="120" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/domain/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/ActivityService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2508">
+          <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/service/impl/LogServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="38" column="50" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/LogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/active/controller/PartyBranchController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
         </state>
       </provider>
     </entry>

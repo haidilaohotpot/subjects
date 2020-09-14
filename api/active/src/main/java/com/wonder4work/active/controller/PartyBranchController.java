@@ -63,7 +63,11 @@ public class PartyBranchController {
         String branchList = redisOperator.get("partyBranchList");
         if (StringUtils.isBlank(branchList)) {
             partyBranchList = partyBranchService.list();
-            redisOperator.set("partyBranchList", JsonUtils.objectToJson(partyBranchList));
+            if (partyBranchList != null && partyBranchList.size() > 0) {
+                redisOperator.set("partyBranchList", JsonUtils.objectToJson(partyBranchList));
+            }else{
+                redisOperator.set("partyBranchList", "");
+            }
         }else{
             partyBranchList = JsonUtils.jsonToList(branchList, PartyBranch.class);
         }
