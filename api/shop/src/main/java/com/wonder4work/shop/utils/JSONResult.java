@@ -22,7 +22,7 @@ public class JSONResult {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     // 响应业务状态
-    private Integer status;
+    private Integer code;
 
     // 响应消息
     private String msg;
@@ -33,12 +33,12 @@ public class JSONResult {
     @JsonIgnore
     private String ok;	// 不使用
 
-    public static JSONResult build(Integer status, String msg, Object data) {
-        return new JSONResult(status, msg, data);
+    public static JSONResult build(Integer code, String msg, Object data) {
+        return new JSONResult(code, msg, data);
     }
 
-    public static JSONResult build(Integer status, String msg, Object data, String ok) {
-        return new JSONResult(status, msg, data, ok);
+    public static JSONResult build(Integer code, String msg, Object data, String ok) {
+        return new JSONResult(code, msg, data, ok);
     }
     
     public static JSONResult ok(Object data) {
@@ -73,35 +73,35 @@ public class JSONResult {
 
     }
 
-    public JSONResult(Integer status, String msg, Object data) {
-        this.status = status;
+    public JSONResult(Integer code, String msg, Object data) {
+        this.code = code;
         this.msg = msg;
         this.data = data;
     }
     
-    public JSONResult(Integer status, String msg, Object data, String ok) {
-        this.status = status;
+    public JSONResult(Integer code, String msg, Object data, String ok) {
+        this.code = code;
         this.msg = msg;
         this.data = data;
         this.ok = ok;
     }
 
     public JSONResult(Object data) {
-        this.status = 200;
+        this.code = 200;
         this.msg = "OK";
         this.data = data;
     }
 
     public Boolean isOK() {
-        return this.status == 200;
+        return this.code == 200;
     }
 
     public Integer getStatus() {
-        return status;
+        return code;
     }
 
     public void setStatus(Integer status) {
-        this.status = status;
+        this.code = status;
     }
 
     public String getMsg() {

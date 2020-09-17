@@ -42,7 +42,7 @@ public class ProductInfo implements Serializable {
     private String productDescription;
 
     /** 小图. */
-    @TableField("productIcon")
+    @TableField("product_icon")
     private String productIcon;
 
     /** 状态, 0正常1下架. */
