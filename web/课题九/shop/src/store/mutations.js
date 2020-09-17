@@ -14,7 +14,7 @@ export default {
 				name: goods.name,
 				price: goods.price,
 				num: 1,
-				pic: goods.pic,
+				icon: goods.icon,
 				selected: true
 			});
 		}
@@ -59,6 +59,17 @@ export default {
 				return true;
 			}
 		});
+		localStorage.setItem('cart', JSON.stringify(state.cart));
+	},
+	delCheck(state){
+		let cart = state.cart
+		state.cart.forEach((item,index)=>{
+			if(item.selected == true){
+				console.log(index)
+				cart.splice(index,1)
+			}
+		})
+		state.cart = cart
 		localStorage.setItem('cart', JSON.stringify(state.cart));
 	}
 }

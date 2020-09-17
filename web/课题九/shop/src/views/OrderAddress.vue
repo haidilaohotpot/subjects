@@ -1,49 +1,34 @@
 <template>
 	<div>
-		<van-sticky>
+		<van-sticky style="color: #8c9cea;">
 			<van-row class="search-top">
 				<van-col offset="10" span="10">
-					<div class="cart-text">购物车</div>
-				</van-col>
-				<van-col span="4">
-					<div class="gray-text" @click="del()">删除</div>
+					<div class="cart-text">订单收货地址</div>
 				</van-col>
 			</van-row>
 		</van-sticky>
-		<myCard></myCard>
+		<order-template></order-template>
 		<foot-tabs></foot-tabs>
 	</div>
 </template>
 <script>
 	import FootTabs from "../components/foot-tabs.vue"
-	import myCard from "../components/MyCart.vue"
-	import {
-		mapState,
-		mapGetters,
-		mapActions
-	} from "vuex"
+	import OrderTemplate from "../components/order-template.vue"
 	export default {
 		components: {
-			FootTabs,myCard
-		},
-		methods: {
-			...mapActions(['delCheck']),
-			del() {
-				this.delCheck()
-			}
-	
+			FootTabs,OrderTemplate
 		}
 	}
 </script>
 <style scoped="scoped">
 	.search-top {
-		background: skyblue;
+		background:yellow;
 		width: 100%;
 		height: 50px;
 	}
 
 	.cart-text {
-		color: white;
+		color: black;
 		font-size: 18px;
 		line-height: 50px;
 		font-weight: bold;

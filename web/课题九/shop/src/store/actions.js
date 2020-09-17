@@ -13,5 +13,8 @@ export default{
 	},
 	checkOne({commit},checked){
 		commit('checkOne',checked)
+	},
+	delCheck({commit}){
+		commit('delCheck')
 	}
 }

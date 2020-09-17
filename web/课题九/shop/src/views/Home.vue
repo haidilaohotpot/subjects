@@ -23,17 +23,13 @@
 			</van-swipe-item>
 		</van-swipe>
 
-		<van-grid :border="false" :column-num="5">
+		<!-- <van-grid :border="false" :column-num="5">
 			<van-grid-item v-for="(item,index) in cataList" :icon="item.pic" :text="item.name" :key="index">
 			</van-grid-item>
-		</van-grid>
+		</van-grid> -->
 		<van-sticky :offset-top="stickyHeight">
-			<van-tabs title-active-color="skyblue" background="#eee" color="skyblue" swipe-threshold="5" v-model="active">
-				<van-tab title="全部" />
-				<van-tab title="菜谱" />
-				<van-tab title="早餐" />
-				<van-tab title="休闲" />
-				<van-tab title="人气" />
+			<van-tabs title-active-color="skyblue" background="#eee" color="skyblue" swipe-threshold="5" v-model="active" @click="changeProductList(active)" >
+				<van-tab  v-for="(item,index) in cataList"  :key="index"  :title="item.name" />
 			</van-tabs>
 		</van-sticky>
 
@@ -48,7 +44,7 @@
 	import {mapGetters} from "vuex"
 	import FootTabs from "../components/foot-tabs.vue"
 	import GoodsList from "../components/goods-list.vue"
-
+	import axios from 'axios'
 	export default {
 		name: 'Home',
 		components: {
@@ -66,6 +62,7 @@
 					require("../assets/pic/3.jpg"),
 					require("../assets/pic/4.jpg")
 				],
+				
 				cataList: [{
 						name: '餐饮熟食',
 						pic: require("../assets/pic/cata/1.png")
@@ -158,9 +155,39 @@
 				]
 			}
 		},
+		methods:{
+			
+			changeProductList(index){
+				// console.log(index)
+				var that = this
+				that.productlist = that.cataList[index].foods
+				
+			}
+			
+		},
+		computed:{
+			
+		},
 		mounted() {
 			let w = document.querySelector(".search-top").clientHeight;			
 			this.stickyHeight=`${w}`;
+		},
+		created() {
+			var that = this;
+			axios.get('http://localhost:8089/sell/buyer/product/list').then(function(result){
+				
+				if(result.data.code ==0 ){
+					that.cataList = result.data.data
+					if(that.cataList.length>0){
+					
+						that.productlist = result.data.data[0].foods
+					}
+				}
+				
+				console.log(result)
+				
+			})
+			
 		}
 
 	}

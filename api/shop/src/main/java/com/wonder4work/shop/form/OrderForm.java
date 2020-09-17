@@ -26,7 +26,7 @@ public class OrderForm {
     private String address;
 
     /**
-     * 买家微信openid
+     * 买家openid
      */
     @NotEmpty(message = "openid必填")
     private String openid;
