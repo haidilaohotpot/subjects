@@ -6,6 +6,7 @@ import com.wonder4work.shop.dto.CartDTO;
 import com.wonder4work.shop.utils.PagedGridResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiezengcheng
@@ -21,7 +22,7 @@ public interface ProductService extends IService<ProductInfo> {
      */
     List<ProductInfo> findUpAll();
 
-    PagedGridResult findAll(Integer page,Integer pageSize);
+    PagedGridResult findAll(Map<String, Object> map, Integer page, Integer pageSize);
 
     void saveOne(ProductInfo productInfo);
 

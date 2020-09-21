@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SellExceptionHandler {
 
 
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = SellException.class)
     @ResponseBody
     public ResultVO handlerSellerException(SellException e) {
         return ResultVOUtil.error(e.getCode(), e.getMessage());

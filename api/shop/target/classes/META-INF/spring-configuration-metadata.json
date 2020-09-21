@@ -1,0 +1,89 @@
+{
+  "groups": [
+    {
+      "name": "project-url",
+      "type": "com.wonder4work.shop.config.ProjectUrlConfig",
+      "sourceType": "com.wonder4work.shop.config.ProjectUrlConfig"
+    },
+    {
+      "name": "wechat",
+      "type": "com.wonder4work.shop.config.WechatAccountConfig",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "project-url.sell",
+      "type": "java.lang.String",
+      "description": "点餐系统",
+      "sourceType": "com.wonder4work.shop.config.ProjectUrlConfig"
+    },
+    {
+      "name": "project-url.wechat-mp-authorize",
+      "type": "java.lang.String",
+      "description": "微信公众平台授权url",
+      "sourceType": "com.wonder4work.shop.config.ProjectUrlConfig"
+    },
+    {
+      "name": "project-url.wechat-open-authorize",
+      "type": "java.lang.String",
+      "description": "微信开放平台授权url",
+      "sourceType": "com.wonder4work.shop.config.ProjectUrlConfig"
+    },
+    {
+      "name": "wechat.key-path",
+      "type": "java.lang.String",
+      "description": "商户证书路径",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    },
+    {
+      "name": "wechat.mch-id",
+      "type": "java.lang.String",
+      "description": "商户号",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    },
+    {
+      "name": "wechat.mch-key",
+      "type": "java.lang.String",
+      "description": "商户密钥",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    },
+    {
+      "name": "wechat.mp-app-id",
+      "type": "java.lang.String",
+      "description": "公众平台id",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    },
+    {
+      "name": "wechat.mp-app-secret",
+      "type": "java.lang.String",
+      "description": "公众平台密钥",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    },
+    {
+      "name": "wechat.notify-url",
+      "type": "java.lang.String",
+      "description": "微信支付异步通知地址",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    },
+    {
+      "name": "wechat.open-app-id",
+      "type": "java.lang.String",
+      "description": "开放平台id",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    },
+    {
+      "name": "wechat.open-app-secret",
+      "type": "java.lang.String",
+      "description": "开放平台密钥",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    },
+    {
+      "name": "wechat.template-id",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "微信模版id",
+      "sourceType": "com.wonder4work.shop.config.WechatAccountConfig"
+    }
+  ],
+  "hints": []
+}

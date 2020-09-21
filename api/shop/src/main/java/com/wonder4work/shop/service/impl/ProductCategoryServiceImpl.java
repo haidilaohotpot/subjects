@@ -3,9 +3,12 @@ package com.wonder4work.shop.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
 import com.wonder4work.shop.domain.ProductCategory;
 import com.wonder4work.shop.mapper.ProductCategoryMapper;
 import com.wonder4work.shop.service.ProductCategoryService;
+import com.wonder4work.shop.utils.PageUtil;
+import com.wonder4work.shop.utils.PagedGridResult;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -24,8 +27,14 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
     }
 
     @Override
-    public List<ProductCategory> findAll() {
-        return this.list();
+    public PagedGridResult findAll(Integer page,Integer pageSize) {
+
+        PageHelper.startPage(page, pageSize);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.orderByDesc("update_time");
+        List<ProductCategory> categoryList = this.list();
+        PagedGridResult pagedGridResult = PageUtil.setterPagedGrid(page, categoryList);
+        return pagedGridResult;
     }
 
     @Override

@@ -36,9 +36,9 @@ public class SellerOrderController {
     @GetMapping(value = "/list")
     public ResultVO list(@RequestParam(value = "page", defaultValue = "1") Integer page,
                          @RequestParam(value = "size", defaultValue = "10") Integer size,
-                         Map<String, Object> map) {
+                         @RequestParam Map<String, Object> map) {
 
-        PagedGridResult pagedGridResult = orderService.findList(page, size);
+        PagedGridResult pagedGridResult = orderService.findList(map,page, size);
 
         return ResultVOUtil.success(pagedGridResult);
     }
@@ -64,20 +64,20 @@ public class SellerOrderController {
     /**
      * 订单详情
      * @param orderId
-     * @param map
      * @return
      */
     @GetMapping("/detail")
     public ResultVO detail(@RequestParam("orderId") String orderId,
-                               Map<String, Object> map) {
-        OrderDTO orderDTO = new OrderDTO();
+                           @RequestParam(value = "page", defaultValue = "1") Integer page,
+                           @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        PagedGridResult pagedGridResult = new PagedGridResult();
         try {
-            orderDTO = orderService.findOne(orderId);
+            pagedGridResult = orderService.findOne(orderId, page, pageSize);
         }catch (SellException e) {
             log.error("【卖家端查询订单详情】发生异常{}", e);
             return ResultVOUtil.error(ResultEnum.ORDERDETAIL_NOT_EXIST.getCode(),e.getMessage());
         }
-        return ResultVOUtil.success(orderDTO);
+        return ResultVOUtil.success(pagedGridResult);
     }
 
     /**

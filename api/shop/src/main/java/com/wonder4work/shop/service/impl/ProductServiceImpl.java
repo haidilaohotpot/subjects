@@ -12,10 +12,12 @@ import com.wonder4work.shop.mapper.ProductInfoMapper;
 import com.wonder4work.shop.service.ProductService;
 import com.wonder4work.shop.utils.PageUtil;
 import com.wonder4work.shop.utils.PagedGridResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiezengcheng
@@ -41,11 +43,22 @@ public class ProductServiceImpl extends ServiceImpl<ProductInfoMapper,ProductInf
     }
 
     @Override
-    public PagedGridResult findAll(Integer page, Integer pageSize) {
+    public PagedGridResult findAll(Map<String, Object> map,Integer page, Integer pageSize) {
 
         PageHelper.startPage(page, pageSize);
 
-        List<ProductInfo> list = this.list();
+        String productName = (String)map.get("productName");
+        String categoryType = (String)map.get("categoryType");
+
+        QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(productName)) {
+            queryWrapper.like("product_name", productName);
+        }
+
+        if (StringUtils.isNotBlank(categoryType)) {
+            queryWrapper.eq("category_type", categoryType);
+        }
+        List<ProductInfo> list = this.list(queryWrapper);
 
         PagedGridResult pagedGridResult = PageUtil.setterPagedGrid(page, list);
 

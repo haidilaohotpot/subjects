@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>添加商品</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+		
+	</head>
+	<body>
+
+		<blockquote class="layui-elem-quote layui-text">
+			添加商品
+		</blockquote>
+
+		<form class="layui-form" action="" lay-filter="example">
+
+
+			<div class="layui-form-item" id="pbn">
+				<label class="layui-form-label">商品名</label>
+				<div class="layui-input-inline">
+					<input type="text" name="productName" id="productName" lay-verify="required" value="" lay-reqtext="必填项，岂能为空？"
+					 autocomplete="off" class="layui-input">
+
+				</div>
+			</div>
+
+			<div class="layui-form-item" id="pbn2">
+				<label class="layui-form-label">描述</label>
+				<div class="layui-input-inline">
+					<input type="text" name="productDescription" id="productDescription" lay-verify="required" value="" lay-reqtext="必填项，岂能为空？"
+					 autocomplete="off" class="layui-input">
+
+				</div>
+			</div>
+
+			</div>
+
+			<div class="layui-form-item" hidden="hidden">
+				<div class="layui-input-inline">
+					<input type="text" disabled="disabled" name="productId" id="productId" lay-verify="" value="" lay-reqtext="必填项，岂能为空？"
+					 autocomplete="off" class="layui-input">
+
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">商品类别</label>
+					<div class="layui-input-inline">
+						<!-- 可见范围 0 不可见 1 部分可见 2 全部可见 -->
+						<select id="categoryType" name="categoryType" lay-verify="required" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">库存</label>
+
+					<div class="layui-input-inline">
+						<input type="number" name="productStock" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入名额">
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">价格</label>
+
+					<div class="layui-input-inline">
+						<input type="number" name="productPrice" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入名额">
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item" id="pbn2">
+				<label class="layui-form-label">图片</label>
+				<div class="layui-input-inline">
+					<input type="text" name="productIcon" id="productIcon" lay-verify="required" value="" lay-reqtext="必填项，岂能为空？"
+					 autocomplete="off" class="layui-input">
+
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">确定</button>
+				</div>
+			</div>
+		</form>
+
+		<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+		<script src="./app.js"></script>
+		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+		<script>
+			layui.use(['upload', 'form', 'layedit', 'laydate'], function() {
+				var form = layui.form,
+					$ = layui.$,
+					upload = layui.upload,
+					layer = layui.layer,
+					layedit = layui.layedit,
+					laydate = layui.laydate;
+					axios.defaults.withCredentials = true;
+					
+				var productId = window.app.getUrlParam('productId');
+
+				axios.get(window.app.serverUrl + 'seller/category/list').then(function(result) {
+					console.log(result)
+					
+					var html = '';
+					result.data.data.rows.forEach(function(item) {
+						html += '<option value="' + item.categoryId + '">' + item.categoryName + '</option>'
+					})
+					$('#categoryType').html(html)
+					form.render();
+
+				});
+
+
+				if (null != productId && undefined != productId && '' != productId) {
+					axios.defaults.withCredentials = true;
+					axios.get(window.app.serverUrl + 'seller/product/index?productId=' + productId).then(function(result) {
+						console.log(result.data.data);
+
+						var productInfo = result.data.data.productInfo;
+						form.val('example', {
+							"productId": productInfo.productId,
+							"productName": productInfo.productName,
+							"productPrice":productInfo.productPrice,
+							"productStock": productInfo.productStock,
+							"productDescription": productInfo.productDescription,
+							"categoryType": productInfo.categoryType,
+							"productIcon": productInfo.productIcon
+						});
+					})
+				}
+
+
+
+				//创建一个编辑器
+				var editIndex = layedit.build('LAY_demo_editor');
+				//普通图片上传
+				var uploadInst = upload.render({
+					elem: '#test1',
+					url: 'https://httpbin.org/post' //改成您自己的上传接口
+						,
+					before: function(obj) {
+						//预读本地文件示例，不支持ie8
+						obj.preview(function(index, file, result) {
+							$('#demo1').attr('src', result); //图片链接（base64）
+						});
+					},
+					done: function(res) {
+						//如果上传失败
+						if (res.code > 0) {
+							return layer.msg('上传失败');
+						}
+						//上传成功
+					},
+					error: function() {
+						//演示失败状态，并实现重传
+						var demoText = $('#demoText');
+						demoText.html(
+							'<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+						demoText.find('.demo-reload').on('click', function() {
+							uploadInst.upload();
+						});
+					}
+				});
+
+				//日期范围
+				laydate.render({
+					elem: '#date1',
+					type: 'datetime',
+					isInitValue: true
+				});
+				//日期范围
+				laydate.render({
+					elem: '#date2',
+					type: 'datetime',
+					isInitValue: true
+				});
+
+				//日期范围
+				laydate.render({
+					elem: '#date3',
+					type: 'datetime',
+
+					isInitValue: true
+				});
+
+				//日期范围
+				laydate.render({
+					elem: '#date4',
+					type: 'datetime',
+					isInitValue: true
+				});
+				//自定义验证规则
+				form.verify({
+
+					name: function(value) {
+						if (value.length < 2 || value.length >= 10) {
+							return '姓名需要在2-10个字符以内';
+						}
+					},
+					pass: [
+						/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/, '密码需要8位以上包含大写字母、小写字母、数字、特殊符号'
+					],
+					signUpEndTime: function() {
+
+					},
+
+					activityStartTime: function(value) {
+						$('#signUpEndTime').val();
+
+					},
+					repassword: function(value) {
+						var password = $('#password').val();
+						console.log(password + value)
+						if (value != password) {
+							return '两次密码不一致'
+						}
+					}
+				});
+
+				// var userId = window.app.getUrlParam('userId');
+
+
+				//监听提交
+				form.on('submit(demo1)', function(data) {
+
+					console.log(data)
+					axios.post(window.app.serverUrl + 'seller/product/save', data.field).then(function(result) {
+						if (result.data.code == 0) {
+							layer.confirm('成功', function(index) {
+								layer.close(index);
+								//向服务端发送删除指令
+								parent.layer.close(parent.layer.index)
+							});
+						} else {
+							layer.msg(JSON.stringify(result.data.msg));
+						}
+
+					})
+					return false;
+				});
+
+			});
+		</script>
+
+	</body>
+</html>

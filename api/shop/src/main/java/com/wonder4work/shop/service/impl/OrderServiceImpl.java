@@ -22,6 +22,7 @@ import com.wonder4work.shop.utils.KeyUtil;
 import com.wonder4work.shop.utils.PageUtil;
 import com.wonder4work.shop.utils.PagedGridResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -62,8 +64,8 @@ public class OrderServiceImpl implements OrderService {
 //        List<CartDTO> cartDTOList = new ArrayList<>();
 
         //1. 查询商品（数量, 价格）
-        for (OrderDetail orderDetail: orderDTO.getOrderDetailList()) {
-            ProductInfo productInfo =  productService.findOne(orderDetail.getProductId());
+        for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
+            ProductInfo productInfo = productService.findOne(orderDetail.getProductId());
             if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
 //                throw new ResponseBankException();
@@ -128,11 +130,34 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public PagedGridResult findOne(String orderId,Integer page,Integer pageSize) {
+        OrderMaster orderMaster = orderMasterMapper.selectById(orderId);
+        if (orderMaster == null) {
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
+        }
+
+        QueryWrapper<OrderDetail> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id", orderId);
+
+        PageHelper.startPage(page, pageSize);
+
+        List<OrderDetail> orderDetailList = orderDetailMapper.selectList(queryWrapper);
+
+        if (CollectionUtils.isEmpty(orderDetailList)) {
+            throw new SellException(ResultEnum.ORDERDETAIL_NOT_EXIST);
+        }
+
+        PagedGridResult pagedGridResult = PageUtil.setterPagedGrid(page, orderDetailList);
+
+        return pagedGridResult;
+    }
+
+    @Override
     public PagedGridResult findList(String buyerOpenid, Integer page, Integer pageSize) {
 
         QueryWrapper<OrderMaster> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("buyer_openid", buyerOpenid);
-
+        queryWrapper.orderByDesc("update_time");
         PageHelper.startPage(page, pageSize);
         List<OrderMaster> orderMasterList = orderMasterMapper.selectList(queryWrapper);
 
@@ -158,7 +183,7 @@ public class OrderServiceImpl implements OrderService {
         orderDTO.setOrderStatus(OrderStatusEnum.CANCEL.getCode());
         BeanUtils.copyProperties(orderDTO, orderMaster);
         int updateResult = orderMasterMapper.updateById(orderMaster);
-        if (updateResult <= 0 ) {
+        if (updateResult <= 0) {
             log.error("【取消订单】更新失败, orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
@@ -235,11 +260,28 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PagedGridResult findList(Integer page, Integer pageSize) {
+    public PagedGridResult findList(Map<String, Object> map, Integer page, Integer pageSize) {
 
         PageHelper.startPage(page, pageSize);
+        QueryWrapper<OrderMaster> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("update_time");
 
-        List<OrderMaster> orderMasterList = orderMasterMapper.selectList(new QueryWrapper<>());
+        String orderStatus = (String) map.get("orderStatus");
+        String buyerPhone = (String) map.get("buyerPhone");
+        String orderId = (String) map.get("orderId");
+
+        if (StringUtils.isNotBlank(orderId)) {
+            queryWrapper.like("order_id", orderId);
+        }
+        if (StringUtils.isNotBlank(buyerPhone)) {
+            queryWrapper.like("buyer_phone", buyerPhone);
+        }
+
+        if (StringUtils.isNotBlank(orderStatus)) {
+            queryWrapper.like("order_status", orderStatus);
+        }
+
+        List<OrderMaster> orderMasterList = orderMasterMapper.selectList(queryWrapper);
 
         List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterList);
 

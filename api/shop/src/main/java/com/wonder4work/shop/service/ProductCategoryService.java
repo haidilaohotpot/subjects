@@ -2,6 +2,7 @@ package com.wonder4work.shop.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wonder4work.shop.domain.ProductCategory;
+import com.wonder4work.shop.utils.PagedGridResult;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface ProductCategoryService extends IService<ProductCategory> {
      * 查询所有的商品类别
      * @return
      */
-    List<ProductCategory> findAll();
+    PagedGridResult findAll(Integer page,Integer pageSize);
 
     /**
      * 根据类目编号查询商品类别
