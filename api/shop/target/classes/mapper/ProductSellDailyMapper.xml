@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonder4work.shop.mapper.ProductSellDailyMapper">
+
+    <resultMap id="productSellDailyResultMap" type="com.wonder4work.shop.domain.ProductSellDaily">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="total" property="total"/>
+        <association property="product" column="product_id"
+                     javaType="com.wonder4work.shop.domain.ProductInfo">
+            <id column="product_id" property="productId"/>
+            <result column="product_name" property="productName"/>
+        </association>
+    </resultMap>
+
+    <select id="queryProductSellDailyList" resultMap="productSellDailyResultMap">
+        SELECT
+        psd.id,
+        psd.create_time,
+        psd.total,
+        p.product_id,
+        p.product_name
+        FROM
+        t_sell_daily psd,
+        product_info p
+        where
+          psd.product_id = p.product_id
+        and
+          DATEDIFF(psd.create_time,NOW()) &lt; 0
+        and
+          DATEDIFF(psd.create_time,NOW()) &gt; -5
+        order by
+          psd.create_time desc
+    </select>
+
+    <insert id="insertProductSellDaily">
+       INSERT
+        INTO
+        t_sell_daily(product_id,total)
+
+        select product_id,sum(product_quantity) as total
+        from
+        order_detail WHERE DATEDIFF(create_time,NOW()) = -1 group
+        by product_id
+
+    </insert>
+
+    <insert id="insertDefaultProductSellDaily">
+
+       insert into t_sell_daily(product_id,total) SELECT p.product_id,0 AS total FROM product_info p WHERE
+        p.product_id NOT IN ( select product_id from order_detail WHERE DATEDIFF(create_time,NOW()) = -1 group by product_id )
+    </insert>
+
+
+</mapper>
