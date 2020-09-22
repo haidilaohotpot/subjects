@@ -19,15 +19,12 @@ import java.util.*;
 @RequestMapping("/es/book")
 public class ESBookController {
 
-    @Autowired
-    private ESUtils esUtils;
-
     @GetMapping("/isExit")
     public Object isExit(@RequestParam String indexName) throws Exception {
         if (StringUtils.isEmpty(indexName)) {
             return JsonResult.failed("索引名不能为空");
         }
-        return esUtils.isExistsIndex(indexName);
+        return ESUtils.isExistsIndex(indexName);
     }
 
 
@@ -39,14 +36,14 @@ public class ESBookController {
         ElasticEntity<Book> elasticEntity = new ElasticEntity();
         elasticEntity.setId(id);
         elasticEntity.setData(map);
-        esUtils.insertOrUpdateOne(indexName, elasticEntity);
+        ESUtils.insertOrUpdateOne(indexName, id, new HashMap<>());
         return JsonResult.success();
     }
 
 
     @PutMapping("/delete/{indexName}/{id}")
     public JsonResult delete(@PathVariable(required = true) String indexName, @PathVariable(required = true) String id) {
-        esUtils.deleteOne(indexName, id);
+        ESUtils.deleteOne(indexName, id);
         return JsonResult.success();
     }
 
@@ -57,7 +54,7 @@ public class ESBookController {
             return JsonResult.failed("索引名不能为空");
         }
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        List<Book> bookList = esUtils.search(indexName, searchSourceBuilder,Book.class);
+        List<Book> bookList = ESUtils.search(indexName, searchSourceBuilder,Book.class);
         return JsonResult.success(bookList);
     }
 

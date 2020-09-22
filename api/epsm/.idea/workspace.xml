@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8918fd9-5405-4556-b875-b918da63f4e2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../active/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../active/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/controller/ActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/controller/ActivityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/controller/PartyBranchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/controller/PartyBranchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/ActivityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/ActivityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/impl/ActivityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/impl/ActivityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/java/com/wonder4work/active/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/src/main/resources/mapper/Activity-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../active/src/main/resources/mapper/Activity-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/controller/ActivityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/controller/ActivityController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/controller/PartyBranchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/controller/PartyBranchController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/ActivityService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/ActivityService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/impl/ActivityServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/impl/ActivityServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/com/wonder4work/active/service/impl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../active/target/classes/mapper/Activity-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../active/target/classes/mapper/Activity-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/activity.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/activity.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/front/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/front/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/front/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/front/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/signUpDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/signUpDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../web/课题八/signUpPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题八/signUpPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../shop/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../shop/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../web/课题九/local/echarts.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../web/课题九/local/echarts.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -40,15 +16,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2838">
-              <caret line="129" selection-start-line="129" selection-end-line="129" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="LogAdvice.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/advice/LogAdvice.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -63,6 +30,24 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="462">
               <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InterfaceLogController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/InterfaceLogController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginLogController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/LoginLogController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -90,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginLogBO-mapper.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginLogBO-mapper.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/LoginLogBO-mapper.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="462">
@@ -102,8 +87,17 @@
       <file leaf-file-name="ValidateController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/ValidateController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="54" column="5" lean-forward="true" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+            <state relative-caret-position="550">
+              <caret line="40" column="9" lean-forward="true" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/UserController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
             </state>
           </provider>
         </entry>
@@ -212,8 +206,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -294,6 +286,17 @@
               <item name="epsm" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="wonder4work" type="462c0819:PsiDirectoryNode" />
+              <item name="epsm" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="epsm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="epsm" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -308,6 +311,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -463,15 +468,15 @@
       <workItem from="1599700160913" duration="15000" />
       <workItem from="1599706043262" duration="48000" />
       <workItem from="1599819141219" duration="104000" />
+      <workItem from="1600690557344" duration="182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86522000" />
+    <option name="totallyTimeSpent" value="86704000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1455" height="944" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.3296433" />
@@ -489,11 +494,11 @@
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3296433" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.47601476" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3296433" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.26199263" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3035075" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30780244" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -700,20 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/LoginLogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/InterfaceLogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/utils/JSONResult.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1168">
@@ -791,13 +782,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="66" column="11" lean-forward="true" selection-start-line="66" selection-start-column="11" selection-end-line="66" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/utils/MD5Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
@@ -833,24 +817,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/ExceptionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/service/impl/ExceptionServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
           <caret line="42" column="9" selection-start-line="32" selection-start-column="4" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/ValidateController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="54" column="5" lean-forward="true" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -868,6 +838,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="29" column="50" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/ExceptionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/InterfaceLogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/LoginLogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/ValidateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="40" column="9" lean-forward="true" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wonder4work/epsm/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
         </state>
       </provider>
     </entry>
