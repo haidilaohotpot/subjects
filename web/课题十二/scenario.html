@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>课题十二ES展示数据</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+		<!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+	</head>
+	<body>
+
+		<div class="layui-container">
+			<blockquote class="layui-elem-quote">课题十二ES展示数据</blockquote>
+
+			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			</fieldset>
+			<div class="demoTable">
+
+				<!-- 开始时间
+				<div class="layui-inline">
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" id="startTime" placeholder="yyyy-MM-dd HH:mm:ss">
+					</div>
+				</div>
+				结束时间
+				<div class="layui-inline">
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" id="endTime" placeholder="yyyy-MM-dd HH:mm:ss">
+					</div>
+				</div>
+				 -->
+				场景
+				<div class="layui-inline">
+					<input class="layui-input" name="scenarioCode" id="scenarioCode" autocomplete="off">
+				</div>
+				<button class="layui-btn" data-type="reload">搜索</button>
+			</div>
+
+
+			<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+		</div>
+
+		<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+		<script>
+			layui.use(['form', 'table'], function() {
+				var form = layui.form
+				var table = layui.table;
+
+
+
+				//方法级渲染
+				table.render({
+					elem: '#LAY_table_user',
+					url: 'http://localhost:9090/es/query/scenarios',
+
+					parseData: function(res) { //res 即为原始返回的数据
+						// console.log(res)
+						return {
+							"status": res.code, //解析接口状态
+							"msg": res.msg, //解析提示文本
+							"page": res.data.page,
+							"total": res.data.records,
+							// "records": res.data.records,
+							"data": res.data.rows //解析数据列表
+						};
+					},
+
+					request: {
+						page: 1,
+						limitName: 'pageSize'
+					},
+					response: {
+						statusName: 'status' //规定数据状态的字段名称，默认：code
+							,
+						statusCode: 0 //规定成功的状态码，默认：0
+							,
+						msgName: 'msg' //规定状态信息的字段名称，默认：msg
+							,
+						countName: 'total' //规定数据总数的字段名称，默认：count
+							,
+						dataName: 'data' //规定数据列表的字段名称，默认：data
+					},
+					cols: [
+						[{
+								field: 'LAY_TABLE_INDEX',
+								title: '#',
+								width: 100,
+								sort: true,
+								fixed: true
+							},
+							{
+								field: 'scenarioCode',
+								title: '场景',
+								width: 200
+							}, {
+								field: 'count',
+								title: '订单数量',
+								width: 300,
+								templet: function(d) {
+									return '<a href="./index.html?scenarioCode=' + d.code + '" >' + d.count + '</a>'
+								}
+							}
+						]
+					],
+					id: 'testReload',
+					page: true,
+					height: 600
+				});
+
+				var $ = layui.$,
+					active = {
+						reload: function() {
+							var scenarioCode = $('#scenarioCode');
+
+							//执行重载
+							table.reload('testReload', {
+								url: 'http://localhost:9090/es/query/scenarios',
+								page: {
+									page: 1 //重新从第 1 页开始
+								},
+								where: {
+
+									scenarioCode: scenarioCode.val()
+
+								}
+							}, 'data');
+						}
+					};
+
+				$('.demoTable .layui-btn').on('click', function() {
+					var type = $(this).data('type');
+					active[type] ? active[type].call(this) : '';
+				});
+			});
+		</script>
+
+	</body>
+</html>

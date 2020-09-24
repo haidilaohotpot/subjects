@@ -1,4 +1,10 @@
 server:
   port: 9090
 
-
+spring:
+  data:
+    elasticsearch:
+      cluster-name: bo-cluster
+      cluster-nodes: 192.168.7.119:9300
+      repositories:
+        enabled: true

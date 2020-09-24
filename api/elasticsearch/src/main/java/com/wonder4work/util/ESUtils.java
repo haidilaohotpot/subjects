@@ -1,6 +1,5 @@
 package com.wonder4work.util;
 
-import com.wonder4work.model.ElasticEntity;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
@@ -16,10 +15,6 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
-import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -35,22 +30,22 @@ import java.util.*;
 @Component
 public class ESUtils {
 
-    private static RestHighLevelClient restHighLevelClient;
+   /* private static RestHighLevelClient restHighLevelClient;
 
     static {
         //这里如果要用client去访问其他节点，就添加进去
         restHighLevelClient = new RestHighLevelClient(RestClient.builder
-                (new HttpHost("localhost", 9200, "http")));
+                (new HttpHost("192.168.7.119", 9200, "http")));
     }
 
-    /**
+    *//**
      * 创建索引
      * @param idxName 索引名称
      * @param idxSQL  索引描述
      * @return void
      * @throws
      * @since
-     */
+     *//*
     public static CreateIndexResponse createIndex(String idxName, Map<String, Object> idxSQL) {
 
 
@@ -75,38 +70,38 @@ public class ESUtils {
     }
 
 
-    /**
+    *//**
      * 判断某个index是否存在
      *
      * @param idxName index名
      * @return boolean
      * @throws
      * @since
-     */
+     *//*
     public static boolean isExistsIndex(String idxName) throws Exception {
         return restHighLevelClient.indices().exists(new GetIndexRequest(idxName), RequestOptions.DEFAULT);
     }
 
-    /**
+    *//**
      * 设置分片
      *
      * @param request
      * @return void
      * @throws
      * @since
-     */
+     *//*
     public static void buildSetting(CreateIndexRequest request) {
         request.settings(Settings.builder().put("index.number_of_shards", 3)
                 .put("index.number_of_replicas", 2));
     }
 
-    /**
+    *//**
      * 新增和编辑数据
      * @param idxName
      * @param id
      * @param data
      * @return
-     */
+     *//*
     public static IndexResponse insertOrUpdateOne(String idxName, String id, Map<String, Object> data) {
 
         IndexRequest request = new IndexRequest(idxName);
@@ -121,28 +116,7 @@ public class ESUtils {
     }
 
 
-    /**
-     * 批量插入数据
-     *
-     * @param idxName index
-     * @param list    带插入列表
-     * @return void
-     * @throws
-     * @since
-     */
-    public static BulkResponse insertBatch(String idxName, List<ElasticEntity> list) {
-        BulkRequest request = new BulkRequest();
-
-        list.forEach(item -> request.add(new IndexRequest(idxName).id(item.getId())
-                .source(item.getData(), XContentType.JSON)));
-        try {
-            return restHighLevelClient.bulk(request, RequestOptions.DEFAULT);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
+    *//**
      * 批量删除
      *
      * @param idxName index
@@ -150,7 +124,7 @@ public class ESUtils {
      * @return void
      * @throws
      * @since
-     */
+     *//*
     public static BulkResponse deleteBatch(String idxName, Collection<Object> idList) {
         BulkRequest request = new BulkRequest();
         idList.forEach(item -> request.add(new DeleteRequest(idxName, item.toString())));
@@ -161,7 +135,7 @@ public class ESUtils {
         }
     }
 
-    /**
+    *//**
      * 删除
      *
      * @param idxName index
@@ -169,7 +143,7 @@ public class ESUtils {
      * @return void
      * @throws
      * @since
-     */
+     *//*
     public static DeleteResponse deleteOne(String idxName, String id) {
         DeleteRequest request = new DeleteRequest(idxName, id);
         try {
@@ -180,14 +154,14 @@ public class ESUtils {
     }
 
 
-    /**
+    *//**
      * @param idxName index
      * @param builder 查询参数
      * @param c       结果类对象
      * @return java.util.List<T>
      * @throws
      * @since
-     */
+     *//*
     public static <T> List<T> search(String idxName, SearchSourceBuilder builder, Class<T> c) {
         SearchRequest request = new SearchRequest(idxName);
         request.source(builder);
@@ -206,14 +180,14 @@ public class ESUtils {
         }
     }
 
-    /**
+    *//**
      * 删除index
      *
      * @param idxName
      * @return void
      * @throws
      * @since
-     */
+     *//*
     public static AcknowledgedResponse deleteIndex(String idxName) {
         try {
             if (isExistsIndex(idxName)) {
@@ -227,13 +201,13 @@ public class ESUtils {
     }
 
 
-    /**
+    *//**
      * @param idxName
      * @param builder
      * @return void
      * @throws
      * @since
-     */
+     *//*
     public static BulkByScrollResponse deleteByQuery(String idxName, QueryBuilder builder) {
 
         DeleteByQueryRequest request = new DeleteByQueryRequest(idxName);
@@ -246,6 +220,6 @@ public class ESUtils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
 }
