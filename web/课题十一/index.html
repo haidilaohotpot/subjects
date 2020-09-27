@@ -21,23 +21,25 @@
 				开始时间
 				<div class="layui-inline">
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+						<input type="text" class="layui-input" id="startTime" placeholder="yyyy-MM-dd">
 					</div>
 				</div>
 				结束时间
 				<div class="layui-inline">
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd">
+						<input type="text" class="layui-input" id="endTime" placeholder="yyyy-MM-dd">
 					</div>
 				</div>
 				类型
 				<div class="layui-inline">
 					<div class="layui-input-inline">
-						<select class="layui-input" style="padding-right: 10px;" name="modules" lay-verify="required" lay-search="">
-							<option value="">CPU</option>
-							<option value="1">内存</option>
-							<option value="2">磁盘</option>
-							<option value="3">缓存</option>
+						<select class="layui-input" id="type" style="padding-right: 10px;" name="modules" lay-verify="required"
+						 lay-search="">
+							<option value="cpu">cpu</option>
+
+							<option value="内存">内存</option>
+							<option value="硬盘">硬盘</option>
+							<option value="主机">主机</option>
 						</select>
 					</div>
 				</div>
@@ -60,78 +62,25 @@
 					layer = layui.layer;
 				var laydate = layui.laydate;
 
-//常规用法
+				//常规用法
 				laydate.render({
 					elem: '#test3'
 				});
-				var addHtml =
-					`
-				  <div class="layui-form-item">
-				    <label class="layui-form-label">主机</label>
-				    <div class="layui-input-block">
-				      <input type="text" name="title" required  lay-verify="required" placeholder="请输入主机" autocomplete="off" class="layui-input">
-				    </div>
-				  </div>
-				  <div class="layui-form-item">
-				    <label class="layui-form-label">类型</label>
-				    <div class="layui-input-block">
-				      <select name="city"  class="layui-input" lay-verify="required">
-				        <option value="">CPU</option>
-				        <option value="0">北京</option>
-				        <option value="1">上海</option>
-				        <option value="2">广州</option>
-				        <option value="3">深圳</option>
-				        <option value="4">杭州</option>
-				      </select>
-				    </div>
-				  </div>
-				 <div class="layui-form-item">
-				 <label class="layui-form-label">时间</label>
-				 	<div class="layui-input-block">
-				 		<input type="text" class="layui-input" id="test3" placeholder="yyyy-MM-dd">
-				 	</div>
-				 </div>
-				<div class="layui-form-item">
-				  <label class="layui-form-label">性能值</label>
-				  <div class="layui-input-block">
-				    <input type="text" name="title" required  lay-verify="required" placeholder="请输入性能值" autocomplete="off" class="layui-input">
-				  </div>
-			
-				`
 
-				$('#addBtn').on('click', function() {
-					layer.open({
-						title: '新增',
-						content: addHtml,
-						btn: ['新增', '取消'] //只是为了演示
-							,
-						yes: function() {
-							$(that).click();
-						},
-						btn2: function() {
-								layer.closeAll();
-							}
 
-							,
-						zIndex: layer.zIndex //重点1
-							,
-						success: function(layero) {
-							layer.setTop(layero); //重点2
-						}
-					});
+				//常规用法
+				laydate.render({
+					elem: '#startTime',
+					value: new Date((new Date).getTime() - 7 * 24 * 60 * 60 * 1000)
 				});
 
 				//常规用法
 				laydate.render({
-					elem: '#test1'
+					elem: '#endTime',
+					value: new Date()
 				});
 
-				//常规用法
-				laydate.render({
-					elem: '#test2'
-				});
-				
-				
+
 				//表单取值
 				layui.$('#LAY-component-form-getval').on('click', function() {
 
@@ -198,11 +147,14 @@
 
 				var table = layui.table;
 
+				var startTime = (new Date).getTime() - 7 * 24 * 60 * 60 * 1000;
+				var endTime = (new Date().getTime()) + 24 * 60 * 60 * 1000
+				var type = $('#type').val();
+
 				//方法级渲染
 				table.render({
 					elem: '#LAY_table_user',
-					url: 'http://localhost:9090/open/query',
-
+					url: 'http://localhost:9090/open/query?startTime=' + startTime + '&endTime=' + endTime + '&type=' + type,
 					parseData: function(res) { //res 即为原始返回的数据
 						// console.log(res)
 						return {
@@ -232,17 +184,14 @@
 					},
 					cols: [
 						[{
-								checkbox: true,
-								fixed: true
-							}, {
-								field: 'id',
-								title: '序号',
-								width: 200,
+								field: 'LAY_TABLE_INDEX',
+								title: '#',
+								width: 100,
 								sort: true,
 								fixed: true
 							},
 							{
-								field: 'createTime',
+								field: 'timestamp',
 								title: '日期',
 								sort: true,
 								width: 200
@@ -258,7 +207,7 @@
 								sort: true,
 								width: 200
 							}, {
-								field: 'maxValue',
+								field: 'value',
 								title: '最高性能值',
 								sort: true,
 								width: 200
@@ -267,23 +216,67 @@
 					],
 					id: 'testReload',
 					page: true,
-					height: 310
+					height: 610
 				});
+
+				function pop(title, content) {
+					var that = this;
+					//多窗口模式，层叠置顶
+					layer.open({
+						type: 2 //此处以iframe举例
+							,
+						title: title,
+						area: ['790px', '550px'],
+						shade: 0,
+						maxmin: true,
+						// offset: [ //为了演示，随机坐标
+						// 	Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+						// ],
+						content: content,
+						zIndex: layer.zIndex //重点1
+							,
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						},
+						end: function(index, layero) {
+
+							table.reload('testReload', {
+								url: 'http://localhost:9090/open/query?startTime=' + startTime + '&endTime=' + endTime + '&type=' + type,
+								page: {
+									page: 1 //重新从第 1 页开始
+								}
+							}, 'data');
+
+							// return false; 
+						}
+					});
+				}
+
+
+				$('#addBtn').click(function() {
+					
+					pop('添加','./operator.html')
+				})
+
 
 				var $ = layui.$,
 					active = {
 						reload: function() {
-							var demoReload = $('#demoReload');
+							var startTime = $('#startTime').val();
+							var endTime = $('#endTime').val();
+							var type = $('#type').val();
 
 							//执行重载
 							table.reload('testReload', {
-								url: 'http://localhost:9090/log/query',
+								url: 'http://localhost:9090/open/query',
 								page: {
 									page: 1 //重新从第 1 页开始
 								},
 								where: {
 
-									queryText: demoReload.val()
+									startTime: new Date(startTime).getTime(),
+									endTime: new Date(endTime).getTime(),
+									type: type
 
 								}
 							}, 'data');

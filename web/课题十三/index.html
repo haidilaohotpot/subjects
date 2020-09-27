@@ -139,7 +139,7 @@
 
 					// console.log(data.field.desc)
 					var logList = JSON.parse(data.field.desc)
-					axios.post('http://localhost:9090/log/create',logList);
+					axios.post('http://localhost:9090/log/create', logList);
 				});
 
 
@@ -149,7 +149,7 @@
 				table.render({
 					elem: '#LAY_table_user',
 					url: 'http://localhost:9090/log/query?queryText=',
-
+					
 					parseData: function(res) { //res 即为原始返回的数据
 						// console.log(res)
 						return {
@@ -216,6 +216,8 @@
 					height: 310
 				});
 
+				// 弹出窗口
+				
 				var $ = layui.$,
 					active = {
 						reload: function() {
@@ -235,6 +237,9 @@
 							}, 'data');
 						}
 					};
+
+
+
 
 				$('.demoTable .layui-btn').on('click', function() {
 					var type = $(this).data('type');
