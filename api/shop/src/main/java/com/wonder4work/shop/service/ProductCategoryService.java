@@ -38,4 +38,11 @@ public interface ProductCategoryService extends IService<ProductCategory> {
      */
     void saveOne(ProductCategory productCategory);
 
+
+    /**
+     * 根据商品类别名查询商品信息
+     * @param categoryName
+     * @return
+     */
+    ProductCategory findByCategoryName(String categoryName);
 }

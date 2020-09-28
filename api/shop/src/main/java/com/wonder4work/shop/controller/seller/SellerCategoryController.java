@@ -1,10 +1,12 @@
 package com.wonder4work.shop.controller.seller;
 
 import com.wonder4work.shop.domain.ProductCategory;
+import com.wonder4work.shop.enums.CodeEnum;
 import com.wonder4work.shop.enums.ResultEnum;
 import com.wonder4work.shop.exception.SellException;
 import com.wonder4work.shop.form.CategoryForm;
 import com.wonder4work.shop.service.ProductCategoryService;
+import com.wonder4work.shop.utils.JSONResult;
 import com.wonder4work.shop.utils.PagedGridResult;
 import com.wonder4work.shop.utils.ResultVOUtil;
 import com.wonder4work.shop.vo.ResultVO;
@@ -44,7 +46,7 @@ public class SellerCategoryController {
     /**
      * 展示
      * @param categoryId
-     * @param map
+     * @param
      * @return
      */
     @GetMapping("/index")
@@ -80,6 +82,11 @@ public class SellerCategoryController {
             }else{
                 BeanUtils.copyProperties(form, productCategory);
                 productCategory.setCategoryType(0);
+                ProductCategory byCategoryName = categoryService.findByCategoryName(productCategory.getCategoryName());
+
+                if (byCategoryName != null && byCategoryName.getCategoryId() != null) {
+                    return ResultVOUtil.error(ResultEnum.PARAM_ERROR.getCode(),"商品分类已经存在");
+                }
                 categoryService.save(productCategory);
             }
 

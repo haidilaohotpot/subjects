@@ -1,5 +1,6 @@
 package com.wonder4work.shop.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wonder4work.shop.domain.OrderDetail;
@@ -44,11 +45,13 @@ public class OrderDTO {
     private Integer payStatus;
 
     /** 创建时间. */
-    @JsonSerialize(using = Date2LongSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /** 更新时间. */
-    @JsonSerialize(using = Date2LongSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;

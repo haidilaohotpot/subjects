@@ -52,4 +52,16 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
     public void saveOne(ProductCategory productCategory) {
         this.save(productCategory);
     }
+
+
+    @Override
+    public ProductCategory findByCategoryName(String categoryName) {
+
+        QueryWrapper<ProductCategory> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category_name", categoryName);
+
+        ProductCategory productCategory = this.getOne(queryWrapper);
+
+        return productCategory;
+    }
 }
