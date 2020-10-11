@@ -37,6 +37,8 @@ public interface OrderService  {
     /** 支付订单. */
     OrderDTO paid(OrderDTO orderDTO);
 
+    void finishOrderAuto();
+
     /**
      * 查询订单列表.
      */

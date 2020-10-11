@@ -22,6 +22,7 @@ projectUrl:
   wechatOpenAuthorize: http://aa71ac1dc2ae.ngrok.io
   sell: http://aa71ac1dc2ae.ngrok.io
 
+
 wechat:
 
   # 公众账号, 授权

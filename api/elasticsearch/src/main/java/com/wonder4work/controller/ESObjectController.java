@@ -32,6 +32,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ScrolledPage;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -55,6 +56,15 @@ import java.util.Map;
 @RequestMapping("/es")
 public class ESObjectController {
 
+
+    /**
+     * scroll游标超时时间，单位ms
+     */
+    private final long SCROLL_TIMEOUT = 30000;
+    /**
+     * scroll游标分页每次查询条数
+     */
+    private int SCROLL_PageSize = 10000;
 
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
@@ -95,6 +105,7 @@ public class ESObjectController {
 
         Page<ESObject> page = repository.search(queryBuilder, requestPageable);
 
+
         PagedGridResult pagedGridResult = new PagedGridResult();
         pagedGridResult.setPage(page.getNumber());
         pagedGridResult.setTotal(page.getTotalPages());
@@ -104,10 +115,46 @@ public class ESObjectController {
         return JsonResult.success(pagedGridResult);
     }
 
+    @GetMapping("/queryForScroll")
+    public JsonResult queryForScroll(@RequestParam(required = false) String orderId,
+                                 @RequestParam(required = false) String scenarioCode,
+                                 @RequestParam(required = false) String startTime,
+                                 @RequestParam(required = false) String endTime,
+                                 Pageable pageable) {
+
+        ArrayList<ESObject> esObjectArrayList = new ArrayList<>();
+        Pageable requestPageable = new PageRequest(pageable.getPageNumber(),pageable.getPageSize(),new Sort(Sort.Direction.DESC, "timestamp"));
+        List<ScrolledPage<ESObject>> scrolledPageList = new ArrayList<>();
+        NativeSearchQueryBuilder nsQueryBuilder = new NativeSearchQueryBuilder();
+        nsQueryBuilder.withQuery(QueryBuilders.queryStringQuery("*:*"));
+        nsQueryBuilder.withPageable(requestPageable);
+        ScrolledPage<?> scrolledPage = (ScrolledPage<?>) elasticsearchTemplate.startScroll(SCROLL_TIMEOUT, nsQueryBuilder.build(),ESObject.class);
+        int page = requestPageable.getPageNumber();
+        int i = 0;
+        while (scrolledPage.hasContent()){
+            //取下一页，scrollId在es服务器上可能会发生变化，需要用最新的;发起continueScroll请求会重新刷新快照保留时间
+            i++;
+            scrolledPage = (ScrolledPage<ESObject>) elasticsearchTemplate.continueScroll(scrolledPage.getScrollId(), SCROLL_TIMEOUT, ESObject.class);
+            if (i == page){
+                break;
+            }
+        }
+        //及时清除es快照，释放资源
+        elasticsearchTemplate.clearScroll(scrolledPage.getScrollId());
+
+        return JsonResult.success(scrolledPage);
+    }
+
+
+
+
 
     @GetMapping("/query/scenarios")
     public JsonResult queryScenarios(@RequestParam(required = false) String scenarioCode,
                                     Pageable pageable) {
+
+
+
 
         List<Object> esObjectList = new ArrayList<>();
         QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();

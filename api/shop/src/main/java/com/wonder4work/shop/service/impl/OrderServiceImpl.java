@@ -51,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMasterMapper orderMasterMapper;
 
+
     @Autowired
     private PayService payService;
 
@@ -287,5 +288,11 @@ public class OrderServiceImpl implements OrderService {
 
         PagedGridResult pagedGridResult = PageUtil.setterPagedGrid(page, orderDTOList);
         return pagedGridResult;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void finishOrderAuto() {
+        orderMasterMapper.finishOrderAuto();
     }
 }

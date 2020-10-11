@@ -26,4 +26,5 @@ public class ESObject implements Serializable {
     private Object orderNumber;
     private Object servNo;
     private Object total_time;
+
 }

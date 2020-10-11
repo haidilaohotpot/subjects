@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonder4work.shop.mapper.OrderMasterMapper">
+
+
+    <update id="finishOrderAuto">
+        UPDATE
+          order_master om
+        SET
+          om.order_status = 1
+        WHERE
+          om.order_status = 0
+        AND
+          om.pay_status = 1
+        AND
+          DATEDIFF(create_time,NOW()) = -1
+    </update>
+
+
+</mapper>
